@@ -1,0 +1,139 @@
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+#wrap { position: relative; width: 100%; height: 560px; background: #eef0f4; border-radius: 16px; overflow: hidden; }
+canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ui { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; pointer-events: none; }
+.eyebrow { font-family: -apple-system, sans-serif; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; color: #3b6af5; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.eyebrow::before, .eyebrow::after { content: ''; display: block; width: 24px; height: 1px; background: #3b6af5; opacity: 0.6; }
+h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 48px; font-weight: 700; line-height: 1.08; color: #0a0a0a; margin-bottom: 20px; letter-spacing: -0.025em; max-width: 560px; }
+h1 span { color: #3b6af5; }
+p { font-family: -apple-system, sans-serif; font-size: 15px; color: #666; line-height: 1.65; max-width: 400px; margin-bottom: 32px; }
+.btn { pointer-events: all; display: inline-flex; align-items: center; gap: 10px; background: #3b6af5; color: #fff; font-family: -apple-system, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 15px 32px; border-radius: 6px; border: none; cursor: pointer; }
+</style>
+
+<div id="wrap">
+  <canvas id="c"></canvas>
+  <div class="ui">
+    <div class="eyebrow">Outbound Sales Partnership</div>
+    <h1>We Build, Manage, and <span>Close</span> Your B2B Pipeline.</h1>
+    <p>Sell more with less. Sparrow combines AI targeting with dedicated human business developers — from market research to closure.</p>
+    <button class="btn">Build Your Pipeline &nbsp;→</button>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const wrap = document.getElementById('wrap');
+
+let W, H;
+function resize() {
+  W = canvas.width = wrap.offsetWidth;
+  H = canvas.height = wrap.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+let t = 0;
+
+function noise(x, y, t) {
+  const v1 = Math.sin(x * 0.008 + t * 0.18) * Math.cos(y * 0.009 - t * 0.12);
+  const v2 = Math.sin(x * 0.014 - y * 0.007 + t * 0.09);
+  const v3 = Math.cos(x * 0.006 + y * 0.011 - t * 0.15) * 0.5;
+  const v4 = Math.sin((x + y) * 0.005 + t * 0.07) * 0.3;
+  return (v1 + v2 + v3 + v4) / 2.3;
+}
+
+function getIsoLines(levels) {
+  const step = 6;
+  const cols = Math.ceil(W / step) + 1;
+  const rows = Math.ceil(H / step) + 1;
+
+  const grid = [];
+  for (let r = 0; r < rows; r++) {
+    grid[r] = [];
+    for (let c = 0; c < cols; c++) {
+      grid[r][c] = noise(c * step, r * step, t);
+    }
+  }
+
+  const lines = {};
+  levels.forEach(lv => lines[lv] = []);
+
+  for (let r = 0; r < rows - 1; r++) {
+    for (let c = 0; c < cols - 1; c++) {
+      const x0 = c * step, y0 = r * step;
+      const tl = grid[r][c], tr = grid[r][c+1];
+      const bl = grid[r+1][c], br = grid[r+1][c+1];
+
+      levels.forEach(lv => {
+        const pts = [];
+
+        function interp(ax, ay, av, bx, by, bv) {
+          if ((av < lv) === (bv < lv)) return;
+          const s = (lv - av) / (bv - av);
+          pts.push([ax + (bx - ax) * s, ay + (by - ay) * s]);
+        }
+
+        interp(x0, y0, tl, x0+step, y0, tr);
+        interp(x0+step, y0, tr, x0+step, y0+step, br);
+        interp(x0, y0+step, bl, x0+step, y0+step, br);
+        interp(x0, y0, tl, x0, y0+step, bl);
+
+        if (pts.length === 2) {
+          lines[lv].push(pts);
+        }
+      });
+    }
+  }
+
+  return lines;
+}
+
+function draw() {
+  t += 0.012;
+  ctx.clearRect(0, 0, W, H);
+
+  ctx.fillStyle = '#eef0f4';
+  ctx.fillRect(0, 0, W, H);
+
+  const levelCount = 22;
+  const levels = [];
+  for (let i = 0; i < levelCount; i++) {
+    levels.push(-1.05 + (i / (levelCount - 1)) * 2.1);
+  }
+
+  const isoLines = getIsoLines(levels);
+
+  levels.forEach((lv, idx) => {
+    const segs = isoLines[lv];
+    if (!segs || !segs.length) return;
+
+    const t_norm = (idx / (levelCount - 1));
+    const isMid = t_norm > 0.3 && t_norm < 0.7;
+
+    const baseAlpha = isMid ? 0.13 : 0.06;
+    const blueBlend = isMid ? 0.4 : 0.1;
+
+    const r = Math.round(220 + (59 - 220) * blueBlend);
+    const g = Math.round(222 + (106 - 222) * blueBlend);
+    const b = Math.round(228 + (245 - 228) * blueBlend);
+
+    ctx.strokeStyle = `rgba(${r},${g},${b},${baseAlpha})`;
+    ctx.lineWidth = isMid ? 1.1 : 0.7;
+    ctx.lineCap = 'round';
+
+    segs.forEach(([p1, p2]) => {
+      ctx.beginPath();
+      ctx.moveTo(p1[0], p1[1]);
+      ctx.lineTo(p2[0], p2[1]);
+      ctx.stroke();
+    });
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>

@@ -51,35 +51,34 @@ interface PricingSectionProps {
   <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-0">
     {/* Starter Kit product details */}
     <div
-      class="bg-brand-primary/20 border-brand-accent-1/10 w-full rounded-xl border p-6 sm:w-1/2 sm:rounded-r-none sm:p-8 lg:w-1/3"
+      class="w-full rounded-xl border border-[#e8e8e8] px-8 py-10 sm:w-1/2 sm:rounded-r-none sm:px-10 sm:py-12 lg:w-1/3"
     >
       <div class="mb-4">
-        <h3 class="text-brand-text text-2xl font-bold sm:text-3xl">
+        <h3 class="text-[#111] dark:text-white text-2xl font-bold sm:text-3xl">
           {pricing.starterKit.name}
         </h3>
-        <p class="text-brand-accent-1/60">{pricing.starterKit.description}</p>
+        <p class="text-gray-500">{pricing.starterKit.description}</p>
       </div>
 
       <div class="mb-4">
-        <span class="text-brand-text text-4xl font-bold"
+        <span class="text-[#111] dark:text-white text-4xl font-medium"
           >{pricing.starterKit.price}</span
         >
-        <span class="text-brand-text/80 text-lg font-bold"
+        <span class="text-[#111]/80 dark:text-white/80 text-lg font-medium"
           >{pricing.starterKit.cents}</span
         >
-        <span class="text-brand-accent-1/60 ms-3 text-sm"
+        <span class="text-gray-500 ms-3 text-sm"
           >{pricing.starterKit.billingFrequency}</span
         >
       </div>
       {
         /* Features list - automatically created by mapping over `features` array */
       }
-      <ul class="text-brand-text/80 mb-6 space-y-2">
+      <ul class="text-[#111]/80 dark:text-white/80 mb-6 mt-8 space-y-2">
         {
           pricing.starterKit.features.map((feature: string) => (
-            <li class="flex items-center gap-1.5">
-              <Icon name="checkCircle" />
-
+            <li class="flex items-center gap-2">
+              <span class="text-[#555] dark:text-gray-400">—</span>
               <span>{feature}</span>
             </li>
           ))
@@ -89,52 +88,51 @@ interface PricingSectionProps {
       <a
         href={pricing.starterKit.purchaseLink}
         data-astro-prefetch
-        class="bg-brand-primary/40 text-brand-text ring-brand-accent-1/20 hover:bg-brand-primary/60 active:text-brand-accent-1 block rounded-lg px-8 py-3 text-center text-sm font-bold outline-hidden transition duration-100 focus-visible:ring-3 md:text-base"
+        class="bg-[#f2f2f2] text-[#111] hover:bg-[#e6e6e6] block rounded-[6px] px-8 py-3 text-center text-sm font-medium outline-hidden transition duration-100 focus-visible:ring-3 md:text-base"
         >{pricing.starterKit.purchaseBtnTitle}</a
       >
     </div>
     {/* Professional Toolbox product details */}
     <div
-      class="from-brand-primary to-brand-accent-1 w-full rounded-xl bg-linear-to-tr p-6 shadow-xl sm:w-1/2 sm:p-8"
+      class="w-full rounded-xl bg-[#0f0f0f] px-8 py-10 sm:w-1/2 sm:px-10 sm:py-12"
     >
       <div
         class="mb-4 flex flex-col items-start justify-between gap-4 lg:flex-row"
       >
         <div>
-          <h3 class="text-brand-bg text-2xl font-bold sm:text-3xl">
+          <h3 class="text-white text-2xl font-bold sm:text-3xl">
             {pricing.professionalToolbox.name}
           </h3>
-          <p class="text-brand-bg/70">
+          <p class="text-white/70">
             {pricing.professionalToolbox.description}
           </p>
         </div>
 
         <span
-          class="bg-opacity-50 bg-brand-bg/20 text-brand-bg order-first inline-block rounded-full px-3 py-1 text-center text-xs font-bold tracking-wider uppercase lg:order-none"
+          class="bg-white/10 text-white order-first inline-block rounded-full px-3 py-1 text-center text-xs font-bold tracking-wider uppercase lg:order-none"
           >{pricing.badge}</span
         >
       </div>
 
       <div class="mb-4">
-        <span class="text-brand-bg text-6xl font-bold"
+        <span class="text-white text-6xl font-medium"
           >{pricing.professionalToolbox.price}</span
         >
-        <span class="text-brand-bg/60 text-lg font-bold"
+        <span class="text-white/60 text-lg font-medium"
           >{pricing.professionalToolbox.cents}</span
         >
-        <span class="text-brand-bg/60 ms-3"
+        <span class="text-white/60 ms-3"
           >{pricing.professionalToolbox.billingFrequency}</span
         >
       </div>
       {
         /* Features list - automatically created by mapping over `features` array */
       }
-      <ul class="text-brand-bg/80 mb-6 space-y-2">
+      <ul class="text-white/80 mb-6 mt-8 space-y-2">
         {
           pricing.professionalToolbox.features.map((feature: string) => (
-            <li class="flex items-center gap-1.5">
-              <Icon name="checkCircle" />
-
+            <li class="flex items-center gap-2">
+              <span class="text-[#888]">—</span>
               <span>{feature}</span>
             </li>
           ))
@@ -144,7 +142,7 @@ interface PricingSectionProps {
       <a
         href={pricing.professionalToolbox.purchaseLink}
         data-astro-prefetch
-        class="bg-brand-bg text-brand-accent-1 ring-brand-accent-1/50 hover:bg-brand-bg/90 active:bg-brand-bg block rounded-lg px-8 py-3 text-center text-sm font-bold outline-hidden transition-[color,background-color,border-color,box-shadow] duration-150 focus-visible:ring-3 md:text-base"
+        class="bg-white text-[#111] hover:bg-gray-100 block rounded-[6px] px-8 py-3 text-center text-sm font-medium outline-hidden transition-[color,background-color,border-color,box-shadow] duration-150 focus-visible:ring-3 md:text-base"
         >{pricing.professionalToolbox.purchaseBtnTitle}</a
       >
     </div>

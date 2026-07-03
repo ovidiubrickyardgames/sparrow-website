@@ -16,7 +16,7 @@ export const en: CopywritingSchema = {
       { name: 'Our Approach', url: '#approach' },
       { name: 'Capabilities', url: '#capabilities' },
       { name: 'Pricing', url: '#pricing' },
-      { name: 'Audit Your Pipeline', url: '#audit' },
+      { name: 'Audit your pipeline', url: '#audit' },
     ],
     footerLinks: [
       {
@@ -146,113 +146,113 @@ export const en: CopywritingSchema = {
       metaDescription: 'We Build, Manage, and Close Your B2B Pipeline. Sparrow is an end-to-end outbound sales partner.',
       hero: {
         eyebrowLabel: 'OUTBOUND SALES PARTNERSHIP',
-        titleHtml: 'We Build, Manage, and <span class="text-blue-600">Close</span> Your B2B Pipeline.',
-        subTitle: 'Sell more with less. Sparrow is an end-to-end outbound sales partner. We combine next-gen AI targeting with dedicated human business developers to handle everything from market research to direct sales and closure.',
-        primaryBtn: 'Build Your Pipeline',
+        titleHtml: 'We Build, Manage, and <span class="text-brand-accent-1">Close</span> Your B2B Pipeline.',
+        subTitle: 'Stop handing your closers bad leads. We pair AI targeting with human sales reps to find your buyers, pitch your product, and book meetings directly on your calendar.',
+        primaryBtn: 'Audit your pipeline →',
         primaryBtnURL: '#audit',
       },
       agitation: {
-        titleHtml: 'The B2B Sales Trap:<br/><span class="text-blue-600">Paying Closers to do Busywork</span>',
-        subTitle: 'If your outbound engine is stalling, it’s because your best people are doing the wrong work.',
+        titleHtml: 'The B2B Sales Trap:<br/><span class="text-brand-accent-1">Paying Closers to Do Admin</span>',
+        subTitle: 'If your outbound engine is stalling, your best people are probably doing the wrong work.',
         stats: [
-          { stat: '70%', description: 'of a sales team\'s time is wasted on non-revenue generating tasks and CRM updates.' },
+          { stat: '70%', description: 'of a sales team\'s time is wasted on data entry and CRM updates.' },
           { stat: '28%', description: 'of their day is actually spent selling.' },
-          { stat: '1-3%', description: 'response rates are the standard for generic, manual cold outreach.' }
+          { stat: '1-3%', description: 'response rates are the standard for manual cold email.' }
         ],
-        conclusion: 'You don\'t just need a new software tool, and you don\'t need to hire another SDR. You need a dedicated partner who can execute the entire top-of-funnel motion.'
+        conclusion: 'You don\'t need another software tool. You need a partner to run the entire top-of-funnel motion for you.'
       },
       solution: {
-        titleHtml: 'The Solution: <span class="text-blue-600">The Hybrid Model</span>',
-        subTitle: 'Tech-Enabled Speed. Human-Driven Strategy.\n\nSparrow doesn\'t just hand you a list of leads and walk away. We operate as an extension of your revenue team, bridging the gap between automated prospecting and human relationship building.',
+        titleHtml: 'The Solution: <span class="text-brand-accent-1">The Hybrid Model</span>',
+        subTitle: 'We don\'t just hand you a list of leads and walk away. We act as your revenue team, bridging the gap between automated prospecting and human relationship building.',
         items: [
           {
-            title: '1. AI-Targeted Intelligence',
-            content: 'We don\'t guess your ICP. We use deep web signals to identify, segment, and verify targets who are exhibiting active buying signals. You get a guaranteed company match, every time.'
+            title: '1. Intent-Based Targeting',
+            content: 'We don\'t guess who wants to buy. We use buying signals to find companies actively looking for your solution. You get guaranteed matches, not random lists.'
           },
           {
             title: '2. Multi-Channel Execution',
-            content: 'We design and deploy tailored campaigns across Email and LinkedIn. By A/B testing copywriting and utilizing dynamic AI personalization, we ensure your messaging cuts through the noise.'
+            content: 'We run tailored campaigns across Email and LinkedIn. We test our copy and use personalized angles so your message actually gets read.'
           },
           {
-            title: '3. Dedicated Human Expertise & Closure',
-            content: 'When the automation stops, our team steps in. We provide dedicated business developers to actively manage relationships, refine sales processes, and even support you in customer meetings and direct sales closure.'
+            title: '3. Human Sales Reps',
+            content: 'When the automation stops, our team steps in. Our business developers manage replies, handle objections, and support you in closing the deal.'
           }
         ]
       },
       process: {
-        titleHtml: 'Our Outbound <span class="text-blue-600">Growth Architecture</span>',
-        subTitle: 'Predictable revenue requires a living, breathing strategy. We continuously adapt to your market.',
+        titleHtml: 'Our Outbound <span class="text-brand-accent-1">Process</span>',
+        subTitle: 'Predictable revenue requires a strategy that adapts. We test, learn, and adjust to your market every week.',
         phases: [
           {
-            title: 'Design & Identify',
-            content: 'We analyze your target segments, study competitor positioning, and architect custom workflows for high-quality lead generation.'
+            title: 'Design & Target',
+            content: 'We analyze your best customers, study your competitors, and build custom lists to find high-quality leads.'
           },
           {
             title: 'Engage & Nurture',
-            content: 'We tailor every touchpoint to maximize interest, managing multi-step sequences across your most critical channels.'
+            content: 'We write specific messages for every step, managing automated sequences across email and LinkedIn.'
           },
           {
-            title: 'Adapt & Optimize',
-            content: 'Markets change. We capture feedback, refine sales scripts, and adjust campaign triggers to react instantly to fluctuating B2B buyer demands.'
+            title: 'Adapt & Close',
+            content: 'We review the replies, refine our scripts, and change our angles to match what your buyers actually want to hear.'
           }
         ]
       },
       analytics: {
-        titleHtml: 'Total Revenue <span class="text-blue-600">Transparency</span>',
-        subTitle: 'We measure our success by your revenue health, not vanity metrics.',
+        titleHtml: 'Track Actual <span class="text-brand-accent-1">Revenue</span>',
+        subTitle: 'We measure our success by your pipeline value, not vanity metrics like open rates.',
         items: [
-          { title: 'Sales Metrics', content: 'Track funnel conversion rates and evaluate your pipeline activity.' },
-          { title: 'Acquisition Cost', content: 'Verify customer acquisition costs (CAC) to ensure optimal scaling efficiency.' },
-          { title: 'ROI & LTV', content: 'Calculate campaign returns and forecast the long-term contract value of acquired accounts.' }
+          { title: 'Conversion Rates', content: 'See exactly how many prospects turn into booked meetings.' },
+          { title: 'Acquisition Cost', content: 'Track your CAC so you know exactly how much a new customer costs to acquire.' },
+          { title: 'Pipeline Value', content: 'Forecast your revenue based on the active deals we bring to your CRM.' }
         ]
       },
       pricing: {
-        titleHtml: 'Predictable Pipeline <span class="text-blue-600">Packages</span>',
-        subTitle: 'Choose the level of partnership that fits your growth targets.',
+        titleHtml: 'Predictable Pipeline <span class="text-brand-accent-1">Packages</span>',
+        subTitle: 'Choose the partnership level that fits your growth targets.',
         plans: {
           starter: {
             title: 'Starter',
-            description: 'Best for validating outbound and creating your first pipeline.',
+            description: 'Best for validating outbound and getting your first wins.',
             price: '€1,000 / month',
             features: [
               'Up to 250 qualified leads',
               'Up to 1,000 cold emails sent',
               '1-3 Ideal Customer Profiles (ICPs)',
-              'Outbound sales automation setup & multi-step campaigns',
+              'Outbound automation setup',
               'Monthly performance reporting'
             ]
           },
           growth: {
             title: 'Growth',
             badge: 'Most Popular',
-            description: 'Best for building a consistent B2B pipeline and scaling outreach.',
+            description: 'Best for scaling a consistent B2B pipeline.',
             price: '€2,500 / month',
             features: [
               '250-750 qualified leads',
               '1,000-3,000 cold emails sent',
               '3-5 Ideal Customer Profiles (ICPs)',
-              'Full outbound execution system (LinkedIn + Email)',
-              'Branded presentations for meetings as marketing materials',
-              'Bi-weekly check-ins & optimization cycles'
+              'Full outbound execution (LinkedIn + Email)',
+              'Branded presentations for meetings',
+              'Bi-weekly check-ins & script updates'
             ]
           },
           scale: {
             title: 'Scale',
-            description: 'Best for companies scaling a full outbound sales engine at volume.',
+            description: 'Best for companies replacing an internal SDR team.',
             price: '€5,000+ / month',
             features: [
-              'Unlimited volume (750+ qualified leads / 3,000+ emails)',
+              'Unlimited volume (750+ leads / 3,000+ emails)',
               'Dedicated business developer (35-40 hours)',
-              'Support on customer meetings, direct sales & closure',
-              'RevOps tech support & CRM integration',
-              'Priority support & quarterly strategy sessions'
+              'Meeting support and direct sales help',
+              'CRM integration and tech support',
+              'Priority support & quarterly strategy'
             ]
           }
         }
       },
       cta: {
-        titleHtml: 'Let\'s Build Your <span class="text-blue-600">Pipeline.</span>',
-        subTitle: 'We don\'t just deliver leads. We build predictable, scalable sales pipelines. Let\'s audit your outbound potential and map out your Go-To-Market strategy.',
+        titleHtml: 'Let\'s Build Your <span class="text-brand-accent-1">Pipeline.</span>',
+        subTitle: 'We don\'t just deliver leads. We build predictable sales engines. Let\'s review your current outbound setup and find the gaps.',
         btnText: 'Audit Your Pipeline',
         btnURL: '#audit'
       }
@@ -345,14 +345,14 @@ export const en: CopywritingSchema = {
       hero: {
         eyebrowLabel: 'Managed Outbound Service',
         eyebrowSuffix: 'Premium Pipeline',
-        titleHtml: `High-Volume B2B Prospecting.<br />\n              <span\n                class="bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-600 bg-clip-text text-transparent"\n              >\n                Executed with Precision.\n              </span>`,
+        titleHtml: `High-Volume B2B Prospecting.<br />\n              <span\n                class="text-brand-accent-1"\n              >\n                Executed with Precision.\n              </span>`,
         subTitle:
           'Stop paying for outdated databases and building complex mailbox architectures. We run a fully managed outbound engine that handles research, deliverability, and personalization to book qualified meetings directly in your calendar.',
         primaryBtn: 'Explore the Service',
         secondaryBtn: 'View Partnership Tiers',
       },
       philosophy: {
-        titleHtml: `You bring the product.<br />\n            <span\n              class="bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent"\n            >\n              We provide the distribution.\n            </span>`,
+        titleHtml: `You bring the product.<br />\n            <span\n              class="text-brand-accent-1"\n            >\n              We provide the distribution.\n            </span>`,
         content:
           "We don't sell \"guaranteed meetings.\" No agency can force a market to buy a product that lacks product-market fit. Instead, we provide industrial-grade distribution. We leverage our proprietary infrastructure to scale your outreach flawlessly. If your product is ready for the market, our service will find the buyers.",
       },

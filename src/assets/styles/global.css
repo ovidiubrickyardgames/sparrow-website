@@ -1,4 +1,4 @@
-/* JetBrains Mono — monospace metadata/code font (moved to MainLayout.astro for non-blocking load) */
+/* Monospace font variables */
 
 /* Tailwind @theme... */
 
@@ -19,8 +19,8 @@
   --color-*: initial;
   --color-transparent: transparent;
   --color-current: currentColor;
-  --color-black: #000;
-  --color-white: #fff;
+  --color-black: #0a0a0a;
+  --color-white: #fafafa;
 
   --color-gray-50: oklch(0.985 0.002 247.839);
   --color-gray-100: oklch(0.967 0.003 264.542);
@@ -116,13 +116,13 @@
     serif;
   --font-display: 'Fraunces', serif;
   --font-ui: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   /* Brand Colors */
-  --color-brand-primary: #1e3a8a;
-  --color-brand-accent-1: #3b82f6;
-  --color-brand-accent-2: #60a5fa;
-  --color-brand-bg: #ffffff;
+  --color-brand-primary: #0a1128;
+  --color-brand-accent-1: #0d2d8a;
+  --color-brand-accent-2: #8ba1b7;
+  --color-brand-bg: #fafafa;
   --color-brand-text: #0f172a;
 
   /* Crystalline theme additions for Outbound Service */
@@ -309,7 +309,7 @@
   }
 
   .premium-card {
-    @apply border-brand-accent-1/20 rounded-2xl border-[3px] bg-[#ffffff]/40 backdrop-blur-md;
+    @apply border-brand-accent-1/20 rounded-2xl border-[3px] bg-[#fafafa]/40 backdrop-blur-md;
   }
 
   .premium-spotlight {
@@ -321,13 +321,13 @@
     content: '';
     @apply absolute inset-0 -z-1 rounded-[inherit] opacity-0 transition-opacity duration-500;
     background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(59, 130, 246, 0.08),
+        rgba(13, 45, 138, 0.08),
         transparent 40%);
   }
 
   .premium-card:hover,
   .premium-spotlight:hover {
-    @apply border-brand-accent-1/60 shadow-[12px_12px_0px_0px_rgba(59,130,246,0.1)];
+    @apply border-brand-accent-1/60 shadow-[12px_12px_0px_0px_rgba(13,45,138,0.1)];
   }
 
   .premium-card:hover::before,
@@ -348,7 +348,7 @@
   /* Premium Card Light Theme Overrides (when parent wrapper is white) */
   .bg-white .premium-card {
     border-color: var(--color-zinc-200);
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(250, 250, 250, 0.8);
     box-shadow: var(--shadow-xs);
     backdrop-filter: blur(12px);
   }
@@ -380,7 +380,7 @@
 
 /* Light Theme Overrides (Navbar & Footer on specific pages like Outbound) */
 body.light-theme #main-nav {
-  background-color: rgba(255, 255, 255, 0.95) !important;
+  background-color: rgba(250, 250, 250, 0.95) !important;
   @apply !border-zinc-200;
 }
 
@@ -399,7 +399,7 @@ body.light-theme .brand-logo-text {
 }
 
 body.light-theme footer {
-  background-color: #ffffff !important;
+  background-color: #fafafa !important;
   @apply !border-zinc-200;
 }
 
@@ -419,7 +419,7 @@ body.light-theme footer a:hover {
 
 /* NavDropdown Overrides */
 body.light-theme #main-nav .hs-dropdown-menu {
-  background-color: #ffffff !important;
+  background-color: #fafafa !important;
   @apply !border-zinc-200;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
 }
