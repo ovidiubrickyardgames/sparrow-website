@@ -1,0 +1,501 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import CrystalShard from '@components/ui/CrystalShard.astro';
+import { useTranslations } from '@/copywriting';
+
+
+const copy = useTranslations();
+const pageCopy = copy.pages.outbound;
+
+const pageTitle = pageCopy.pageTitle;
+const metaDescription = pageCopy.metaDescription;
+const currentLocale = 'en';
+const contactUrl = currentLocale === 'en' ? '/contact' : `/${currentLocale}/contact`;
+---
+
+<MainLayout title={pageTitle} customDescription={metaDescription}>
+  {/* Core Container */}
+  <div
+    class="outbound-page-wrapper relative min-h-screen overflow-hidden bg-white text-zinc-800"
+  >
+    {/* Ambient Organic Glow Backgrounds */}
+    <div class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      {/* Soft overlay grids */}
+      <div class="dot-grid absolute inset-0 opacity-[0.04] bg-[radial-gradient(#7c3aed_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      
+      {/* Colorful organic blob highlights */}
+      <div class="absolute -top-[10%] -left-[10%] h-[600px] w-[600px] rounded-full bg-blue-400/5 blur-[150px]"></div>
+      <div class="absolute top-[20%] right-[-10%] h-[500px] w-[500px] rounded-full bg-sky-400/5 blur-[130px]"></div>
+      <div class="absolute top-[50%] left-[10%] h-[700px] w-[700px] rounded-full bg-indigo-400/5 blur-[160px]"></div>
+      <div class="absolute -bottom-[10%] right-[10%] h-[600px] w-[600px] rounded-full bg-purple-400/5 blur-[150px]"></div>
+    </div>
+
+    {/* Hero Section */}
+    <div class="relative z-10 flex min-h-[92vh] items-center pt-24 lg:pt-0">
+      {/* 3D Nebula Asset Canvas */}
+      <div
+        class="pointer-events-none absolute inset-0 z-0 h-full w-full mix-blend-normal"
+      >
+        <CrystalShard />
+      </div>
+
+      <div class="content-container relative z-10 w-full py-20 lg:py-32">
+        <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+          {/* Hero Copy (Left Column on Desktop) */}
+          <div
+            class="flex max-w-2xl flex-col items-start text-left lg:col-span-7"
+          >
+            {/* Eyebrow Label */}
+            <div class="reveal-element mb-6 flex items-center gap-2">
+              <span class="font-serif text-lg italic text-blue-600">{pageCopy.hero.eyebrowLabel}</span>
+              <span class="h-px w-8 bg-zinc-300"></span>
+              <span class="font-mono text-[10px] tracking-widest text-zinc-400 uppercase">{pageCopy.hero.eyebrowSuffix}</span>
+            </div>
+
+            {/* Headline */}
+            <h1
+              class="reveal-heading font-display mb-6 text-4xl leading-[1.08] font-bold tracking-tight text-zinc-950 sm:text-6xl"
+            >
+              <Fragment set:html={pageCopy.hero.titleHtml} />
+            </h1>
+
+            {/* Sub-headline */}
+            <p
+              class="reveal-element mb-10 max-w-xl text-lg leading-relaxed font-light text-zinc-600 sm:text-xl"
+            >
+              {pageCopy.hero.subTitle}
+            </p>
+
+            {/* Action Buttons */}
+            <div class="reveal-element flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
+              <a
+                href="#managed-service"
+                class="group inline-flex items-center justify-center gap-x-2 rounded-lg px-5 py-3 text-sm font-bold ring-zinc-500 transition duration-300 focus-visible:ring-3 outline-hidden bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white shadow-[0_4px_16px_0_rgba(37,99,235,0.25)] hover:shadow-[0_6px_24px_0_rgba(37,99,235,0.45)] 2xl:text-base font-mono tracking-wider uppercase text-xs"
+              >
+                {pageCopy.hero.primaryBtn}
+                <svg class="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+              </a>
+              <a
+                href="#tiers"
+                class="inline-flex items-center justify-center gap-x-2 rounded-lg px-5 py-3 text-center text-sm font-medium text-zinc-700 shadow-xs outline-hidden ring-zinc-500 focus-visible:ring-3 transition duration-300 border border-zinc-200 bg-white hover:bg-zinc-50 active:bg-zinc-100 2xl:text-base font-mono tracking-wider uppercase text-xs"
+              >
+                {pageCopy.hero.secondaryBtn}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Section 2: The Philosophy */}
+    <section
+      class="relative z-10 border-y border-zinc-200 bg-zinc-50/50 py-24 backdrop-blur-sm lg:py-32"
+    >
+      {/* Ambient Glow Accent */}
+      <div
+        class="pointer-events-none absolute top-1/2 left-1/2 h-[250px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-400/5 blur-[120px]"
+      >
+      </div>
+
+      <div class="content-container relative z-10">
+        <div class="mx-auto max-w-4xl">
+          {/* Elegant Ornament */}
+          <div class="reveal-element mb-8 flex justify-center">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-full border border-blue-200 bg-blue-50 shadow-[0_0_20px_rgba(59,130,246,0.05)]"
+            >
+              <div class="h-2 w-2 rounded-full bg-sky-500"></div>
+            </div>
+          </div>
+
+          <h2
+            class="reveal-heading font-display mb-8 text-center text-3xl leading-tight font-bold tracking-tight text-zinc-950 sm:text-5xl"
+          >
+            <Fragment set:html={pageCopy.philosophy.titleHtml} />
+          </h2>
+
+          <div
+            class="reveal-element mx-auto mb-10 h-[1px] w-24 bg-gradient-to-r from-transparent via-sky-500/40 to-transparent"
+          >
+          </div>
+
+          <p
+            class="reveal-element mx-auto max-w-3xl text-center text-lg leading-relaxed font-light text-zinc-600 sm:text-xl"
+          >
+            {pageCopy.philosophy.content}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Section 2.5: The Competitive Edge (Why Us) */}
+    <section class="relative z-10 bg-transparent py-20 lg:py-28 border-b border-zinc-200">
+      <div class="content-container">
+        <div class="mx-auto mb-16 max-w-3xl text-center">
+          <div class="reveal-element mb-4 flex items-center justify-center gap-2">
+            <span class="font-serif text-lg italic text-sky-600">{pageCopy.advantages.eyebrow}</span>
+            <span class="h-px w-6 bg-zinc-300"></span>
+            <span class="font-mono text-[10px] tracking-widest text-zinc-500 uppercase">{pageCopy.advantages.eyebrowSuffix}</span>
+          </div>
+          <h2
+            class="reveal-heading font-display mb-6 text-3xl font-bold tracking-tight text-zinc-950 sm:text-5xl"
+          >
+            {pageCopy.advantages.title}
+          </h2>
+          <p class="reveal-element text-lg font-light text-zinc-600">
+            {pageCopy.advantages.description}
+          </p>
+        </div>
+
+        <div class="reveal-grid mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2">
+          {/* Card 1: Traditional Agencies */}
+          <div class="rounded-2xl border border-zinc-200 bg-zinc-50/50 p-8 transition duration-300">
+            <h3 class="font-display mb-6 text-2xl font-bold text-zinc-500">
+              {pageCopy.advantages.traditional.title}
+            </h3>
+            <ul class="space-y-6">
+              {pageCopy.advantages.traditional.items.map((item) => (
+                <li class="flex items-start gap-3">
+                  <svg
+                    class="mt-1 h-5 w-5 shrink-0 text-red-500/50"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                  <div>
+                    <h4 class="text-lg font-semibold text-zinc-700">{item.title}</h4>
+                    <p class="mt-1 text-base leading-relaxed text-zinc-500">{item.content}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Card 2: Sparrow */}
+          <div class="premium-card group relative p-8">
+            <h3 class="font-display mb-6 text-2xl font-bold text-zinc-900 group-hover:text-blue-600 transition-colors duration-300">
+              {pageCopy.advantages.managed.title}
+            </h3>
+            <ul class="space-y-6">
+              {pageCopy.advantages.managed.items.map((item) => (
+                <li class="flex items-start gap-3">
+                  <svg
+                    class="mt-1 h-5 w-5 shrink-0 text-blue-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <div>
+                    <h4 class="text-lg font-semibold text-zinc-900">{item.title}</h4>
+                    <p class="mt-1 text-base leading-relaxed text-zinc-600">{item.content}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Section 3: The Managed Service */}
+    <section
+      id="managed-service"
+      class="relative z-10 scroll-mt-24 py-24 lg:py-36"
+    >
+      <div class="content-container">
+        {/* Header */}
+        <div class="mx-auto mb-20 max-w-3xl text-center">
+          <div class="reveal-element mb-4 flex items-center justify-center gap-2">
+            <span class="font-serif text-lg italic text-blue-600">{pageCopy.lifecycle.eyebrow}</span>
+            <span class="h-px w-6 bg-zinc-300"></span>
+            <span class="font-mono text-[10px] tracking-widest text-zinc-400 uppercase">{pageCopy.lifecycle.eyebrowSuffix}</span>
+          </div>
+          <h2
+            class="reveal-heading font-display mb-6 text-3xl font-bold tracking-tight text-zinc-950 sm:text-5xl"
+          >
+            {pageCopy.lifecycle.title}
+          </h2>
+          <p class="reveal-element text-lg font-light text-zinc-600">
+            {pageCopy.lifecycle.description}
+          </p>
+        </div>
+
+        {/* Crystalline Modular Flow Diagram Grid */}
+        <div
+          class="reveal-grid relative grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
+        >
+          {/* Connection Line Behind Cards (Desktop Only) */}
+          <div
+            class="absolute top-[28%] right-[12.5%] left-[12.5%] z-0 hidden h-[2px] bg-gradient-to-r from-blue-500/10 via-sky-500/10 to-blue-500/10 lg:block"
+          >
+          </div>
+
+          {pageCopy.lifecycle.phases.map((phase, idx) => (
+            <div
+              class="premium-card group relative z-10 p-8"
+            >
+              <div
+                class={`absolute -top-3 left-8 rounded-md border bg-white px-3 py-1 font-mono text-[10px] tracking-wider ${idx % 2 === 0 ? 'border-blue-500/20 text-blue-600' : 'border-sky-500/20 text-sky-700'}`}
+              >
+                {phase.step}
+              </div>
+
+              <div
+                class={`mb-8 flex h-12 w-12 items-center justify-center rounded-xl border transition-transform duration-500 group-hover:scale-110 ${idx % 2 === 0 ? 'border-blue-500/20 bg-blue-500/5 group-hover:border-blue-500 text-blue-600' : 'border-sky-500/20 bg-sky-500/5 group-hover:border-sky-500 text-sky-600'}`}
+              >
+                {idx === 0 && (
+                  <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A3.375 3.375 0 0111.625 22.5c-1.866 0-3.375-1.509-3.375-3.375v-.109m0-1.6c.5-1.076.786-2.274.786-3.535 0-3.238-1.509-6-3.375-6H4.5M9.03 9.03A9.03 9.03 0 0115 12h.008M9.03 9.03c-.482-.482-.876-1.03-1.171-1.63M9.03 9.03H4.5m4.53 0c-.287.973-.45 2.012-.45 3.09v.109m0-.109c0-1.866-1.509-3.375-3.375-3.375H4.5M4.5 9.03H3.09m1.41 0c.937 0 1.832.185 2.651.52M4.5 9.03V7.5A3.375 3.375 0 017.875 4.125h.109m0 11.625A9.03 9.03 0 013 12h.008m0 0A9.03 9.03 0 009 15h.008"
+                    ></path>
+                  </svg>
+                )}
+                {idx === 1 && (
+                  <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.813 15.904L9 21l8.973-5.973a9.025 9.025 0 003.541-6.155L22 4.5l-10.33 1.033a9.025 9.025 0 00-6.155 3.54L1 15l5.096-.813a3.375 3.375 0 002.342 2.342z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 9l3 3"
+                    ></path>
+                  </svg>
+                )}
+                {idx === 2 && (
+                  <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253"
+                    ></path>
+                  </svg>
+                )}
+                {idx === 3 && (
+                  <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                    ></path>
+                  </svg>
+                )}
+              </div>
+
+              <h3
+                class={`font-display mb-4 text-2xl font-bold text-zinc-900 transition-colors duration-300 ${idx % 2 === 0 ? 'group-hover:text-blue-600' : 'group-hover:text-sky-600'}`}
+              >
+                {phase.title}
+              </h3>
+              <p class="text-base leading-relaxed text-zinc-600">
+                {phase.content}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Section 4: Partnership Tiers */}
+    <section
+      id="tiers"
+      class="relative z-10 scroll-mt-24 border-t border-zinc-200 bg-transparent py-24 lg:py-36"
+    >
+      {/* Visual Accent Layer */}
+      <div
+        class="pointer-events-none absolute right-0 bottom-0 h-[400px] w-[400px] rounded-full bg-sky-400/5 blur-[120px]"
+      >
+      </div>
+
+      <div class="content-container relative z-10">
+        {/* Title Block */}
+        <div class="mx-auto mb-20 max-w-2xl text-center">
+          <div class="reveal-element mb-4 flex items-center justify-center gap-2">
+            <span class="font-serif text-lg italic text-sky-600">{pageCopy.tiers.eyebrow}</span>
+            <span class="h-px w-6 bg-zinc-300"></span>
+            <span class="font-mono text-[10px] tracking-widest text-zinc-400 uppercase">{pageCopy.tiers.eyebrowSuffix}</span>
+          </div>
+          <h2
+            class="reveal-heading font-display mb-6 text-3xl font-bold tracking-tight text-zinc-950 sm:text-5xl"
+          >
+            {pageCopy.tiers.title}
+          </h2>
+          <p class="reveal-element text-lg leading-relaxed font-light text-zinc-600">
+            {pageCopy.tiers.description}
+          </p>
+        </div>
+
+        {/* Pricing Cards Grid */}
+        <div
+          class="reveal-grid mx-auto grid max-w-4xl grid-cols-1 items-stretch gap-8 md:grid-cols-2"
+        >
+          {/* Card 1: Managed Outbound Retainer */}
+          <div
+            class="premium-card group relative flex flex-col justify-between p-8 sm:p-10"
+          >
+            <div>
+              {/* Card Header */}
+              <div class="mb-8">
+                <p
+                  class="mb-3 font-mono text-xs font-semibold tracking-widest text-blue-600 uppercase"
+                >
+                  {pageCopy.tiers.retainer.badge}
+                </p>
+                <h3
+                  class="font-display mb-4 text-2xl font-bold text-zinc-900 group-hover:text-blue-600 transition-colors duration-300 sm:text-3xl"
+                >
+                  {pageCopy.tiers.retainer.title}
+                </h3>
+                <p class="text-base leading-relaxed text-zinc-600">
+                  {pageCopy.tiers.retainer.description}
+                </p>
+              </div>
+
+              <div class="my-6 h-[1px] w-full bg-zinc-200"></div>
+
+              {/* Service List */}
+              <ul class="mb-10 space-y-4 text-base text-zinc-700">
+                {pageCopy.tiers.retainer.features.map((feature) => (
+                  <li class="flex items-center gap-3">
+                    <svg
+                      class="h-4 w-4 shrink-0 text-blue-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="3"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <a
+              href={contactUrl}
+              data-astro-prefetch
+              class="w-full inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-center text-sm font-medium text-zinc-700 shadow-xs outline-hidden ring-zinc-500 focus-visible:ring-3 transition duration-300 border border-zinc-300 bg-white hover:bg-blue-50 hover:text-blue-700 hover:border-blue-500/40 active:bg-blue-100 2xl:text-base font-mono tracking-wider uppercase text-xs"
+            >
+              {pageCopy.tiers.retainer.btnText}
+            </a>
+          </div>
+
+          {/* Card 2: Success-Aligned Tiers */}
+          <div
+            class="premium-card group relative flex flex-col justify-between p-8 sm:p-10"
+          >
+            {/* Pop accent glow */}
+            <div
+              class="absolute -top-[14px] left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 px-4 py-1 font-mono text-[9px] font-bold tracking-widest text-white uppercase shadow-[0_4px_12px_rgba(59,130,246,0.15)] z-20"
+            >
+              RECOMMENDED
+            </div>
+
+            <div>
+              {/* Card Header */}
+              <div class="mb-8">
+                <p
+                  class="mb-3 font-mono text-xs font-semibold tracking-widest text-sky-600 uppercase"
+                >
+                  {pageCopy.tiers.performance.badge}
+                </p>
+                <h3
+                  class="font-display mb-4 text-2xl font-bold text-zinc-900 group-hover:text-sky-600 transition-colors duration-300 sm:text-3xl"
+                >
+                  {pageCopy.tiers.performance.title}
+                </h3>
+                <p class="text-base leading-relaxed text-zinc-600">
+                  {pageCopy.tiers.performance.description}
+                </p>
+              </div>
+
+              <div class="my-6 h-[1px] w-full bg-zinc-200"></div>
+
+              {/* Service List */}
+              <ul class="mb-10 space-y-4 text-base text-zinc-700">
+                {pageCopy.tiers.performance.features.map((feature) => (
+                  <li class="flex items-center gap-3">
+                    <svg
+                      class="h-4 w-4 shrink-0 text-sky-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="3"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <a
+              href={contactUrl}
+              data-astro-prefetch
+              class="w-full group inline-flex items-center justify-center gap-x-2 rounded-lg px-5 py-3 text-sm font-semibold ring-zinc-500 transition duration-300 focus-visible:ring-3 outline-hidden border border-sky-500/50 hover:border-sky-600 bg-sky-500 hover:bg-sky-600 text-zinc-950 shadow-[0_4px_12px_rgba(245,158,11,0.25)] hover:shadow-[0_6px_20px_rgba(245,158,11,0.35)] 2xl:text-base font-mono tracking-wider uppercase text-xs"
+            >
+              {pageCopy.tiers.performance.btnText}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</MainLayout>
+
+<style>
+  /* Crystalline Glassmorphic Utilities */
+  .tech-label {
+    font-family: var(--font-mono);
+  }
+</style>

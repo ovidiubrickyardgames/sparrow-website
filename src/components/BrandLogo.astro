@@ -1,0 +1,11 @@
+---
+const { class: className } = Astro.props;
+---
+
+<div class={`flex items-center gap-x-2 ${className}`}>
+  <span
+    class="brand-logo-text font-display text-xl font-bold tracking-tight whitespace-nowrap text-brand-text normal-case transition-colors duration-300"
+    style="text-transform: none; letter-spacing: -0.01em;"
+    ><span class="brand-logo-accent text-brand-accent-1 transition-colors duration-300">Sparrow</span></span
+  >
+</div>

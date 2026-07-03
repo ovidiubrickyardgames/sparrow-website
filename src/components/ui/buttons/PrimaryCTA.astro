@@ -1,0 +1,36 @@
+---
+import Icon from '@components/ui/icons/Icon.astro';
+// Destructure the properties from Astro.props
+const { title, url, noArrow } = Astro.props;
+// Define TypeScript interface for the properties
+interface Props {
+  title?: string;
+  url?: string;
+  noArrow?: boolean;
+}
+// Define CSS classes for styling the button
+const baseClasses =
+  'group inline-flex items-center justify-center gap-x-2 rounded-lg px-5 py-3 text-sm font-bold ring-zinc-500 transition-[color,background-color,border-color,box-shadow] duration-150 focus-visible:ring-3 outline-hidden';
+const borderClasses =
+  'border-2 border-brand-accent-1/60 hover:border-brand-accent-1';
+const bgColorClasses =
+  'bg-brand-accent-1 hover:bg-brand-accent-1/90 active:bg-brand-accent-1/80 text-brand-bg dark:focus:outline-hidden';
+const glowClasses =
+  'shadow-[0_0_16px_0_rgba(187,134,252,0.35)] hover:shadow-[0_0_24px_0_rgba(187,134,252,0.55)]';
+const disableClasses = 'disabled:pointer-events-none disabled:opacity-50';
+const fontSizeClasses =
+  '2xl:text-base font-ui tracking-wider uppercase text-xs';
+const ringClasses = 'dark:ring-zinc-200';
+---
+
+{/* Link styled as a button, with dynamic title, URL, and optional arrow */}
+<a
+  class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${glowClasses} ${disableClasses} ${fontSizeClasses} ${ringClasses}`}
+  href={url}
+  data-astro-prefetch
+>
+  {title}
+  {/* Display the arrow based on the 'noArrow' property */}
+
+  {noArrow ? null : <Icon name="arrowRight" />}
+</a>

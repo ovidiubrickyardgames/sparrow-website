@@ -1,0 +1,101 @@
+---
+// Import the necessary dependencies
+import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+import SecondaryCTA from '@components/ui/buttons/SecondaryCTA.astro';
+
+// Define props from Astro
+const pathParts = Astro.url.pathname.split('/');
+const currentLocale = ['fr', 'ro', 'de'].includes(pathParts[1])
+  ? pathParts[1]
+  : Astro.currentLocale || 'en';
+const defaultBtnTitle = currentLocale === 'fr' ? 'Contactez-nous' : currentLocale === 'ro' ? 'Contactați-ne' : currentLocale === 'de' ? 'Kontaktieren Sie uns' : 'Contact Us';
+const defaultLabel = currentLocale === 'fr' ? 'Collaborer' : currentLocale === 'ro' ? 'Colaborare' : currentLocale === 'de' ? 'Zusammenarbeiten' : 'Collaborate';
+
+const {
+  title,
+  subTitle,
+  url,
+  btnTitle,
+  label = defaultLabel,
+  primaryBtn = url ? (btnTitle || defaultBtnTitle) : undefined,
+  primaryBtnURL = url,
+  secondaryBtn,
+  secondaryBtnURL,
+} = Astro.props;
+
+// Define TypeScript interface for props
+interface Props {
+  title: string;
+  subTitle?: string;
+  url?: string;
+  btnTitle?: string;
+  label?: string;
+  primaryBtn?: string;
+  primaryBtnURL?: string;
+  secondaryBtn?: string;
+  secondaryBtnURL?: string;
+}
+---
+
+<section class="relative w-full overflow-hidden py-20">
+  <div class="content-container">
+    <!-- Background Ambient Glows (Static for Safari performance) -->
+    <div
+      class="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-full w-full -translate-x-1/2 -translate-y-1/2"
+    >
+      <div
+        class="bg-brand-accent-1/10 absolute top-0 left-1/4 h-72 w-72 rounded-full blur-[80px]"
+      >
+      </div>
+      <div
+        class="bg-brand-accent-2/5 absolute right-1/4 bottom-0 h-96 w-96 rounded-full blur-[100px]"
+      >
+      </div>
+    </div>
+
+    <div class="premium-card group p-8 md:p-16 lg:rounded-[2.5rem]">
+      {/* Tech Label Styling */}
+      <div class="reveal-element mb-8 flex items-center justify-center gap-3">
+        <span class="bg-brand-accent-1/40 h-px w-8 rounded-full"></span>
+        <span
+          class="text-brand-accent-1 font-ui text-[10px] font-medium tracking-[0.3em] uppercase opacity-90"
+        >
+          {label}
+        </span>
+        <span class="bg-brand-accent-1/40 h-px w-8 rounded-full"></span>
+      </div>
+
+      <div class="mx-auto max-w-3xl text-center">
+        {/* Hero Section Heading */}
+        <h2
+          class="reveal-heading text-brand-text dark:text-brand-text/90 font-display mb-6 text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-7xl"
+          set:html={title}
+        />
+
+        {/* Hero Section Sub-heading */}
+        {
+          subTitle && (
+            <p class="reveal-element text-brand-text/60 mx-auto mb-10 max-w-xl text-lg leading-relaxed text-pretty">
+              {subTitle}
+            </p>
+          )
+        }
+
+        {/* CTA Buttons */}
+        {
+          (primaryBtn || secondaryBtn) && (
+            <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+              {primaryBtn && <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />}
+              {
+                secondaryBtn && (
+                  <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
+                )
+              }
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>
+

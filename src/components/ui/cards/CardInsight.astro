@@ -1,0 +1,57 @@
+---
+// Import necessary modules and utilities
+import { Image } from 'astro:assets';
+import Icon from '@components/ui/icons/Icon.astro';
+import type { CollectionEntry } from 'astro:content';
+
+const {
+  insightEntry,
+  label = 'Read more',
+} = Astro.props;
+
+interface Props {
+  insightEntry: CollectionEntry<'insights'>;
+  label?: string;
+}
+---
+
+{
+  /* The anchor tag is the root container for the "Insight" card. It links to the insight detail page. */
+}
+<a
+  class="group rounded-xl ring-zinc-500 outline-hidden transition duration-300 focus-visible:ring-3 dark:ring-zinc-200 dark:focus:outline-hidden"
+  href={`/insights/${insightEntry.id.replace(/^en\//, '').replace(/\.[^/.]+$/, '')}/`}
+>
+  {/* This is the container for the insight's cover image. */}
+  <div class="relative overflow-hidden rounded-xl pt-[50%] sm:pt-[70%]">
+    <Image
+      class="absolute start-0 top-0 size-full rounded-xl object-cover transition duration-500 ease-in-out group-hover:scale-105"
+      src={insightEntry.data.cardImage}
+      alt={insightEntry.data.cardImageAlt}
+      draggable={'false'}
+      format={'avif'}
+    />
+  </div>
+  {/* This is the container for the insight's title and description. */}
+  <div class="mt-7">
+    {/* The title of the insight */}
+    <h3
+      class="text-brand-text group-hover:text-brand-text/70 dark:text-brand-text/90 text-xl font-bold dark:group-hover:text-neutral-400"
+    >
+      {insightEntry.data.title}
+    </h3>
+    {/* The description of the insight */}
+    <p class="text-brand-text/70 dark:text-brand-text/60 mt-3">
+      {insightEntry.data.description}
+    </p>
+    {
+      /* The "Read More" hyperlink going to the full insight. With an arrow icon */
+    }
+    <p
+      class="text-brand-accent-1 dark:text-brand-accent-1/90 mt-5 inline-flex items-center gap-x-1 font-medium decoration-2 group-hover:underline"
+    >
+      {label}
+      <Icon name="arrowRightStatic" />
+    </p>
+  </div>
+</a>

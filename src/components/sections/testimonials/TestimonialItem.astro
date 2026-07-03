@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../../ui/icons/Icon.astro';
+
+const { content, author, role, avatarSrc } = Astro.props;
+
+interface Props {
+  content: string;
+  author: string;
+  role: string;
+  avatarSrc: string;
+}
+---
+
+<blockquote class="relative">
+  <Icon name="quotation" />
+
+  <div class="relative z-10">
+    <p class="text-brand-text dark:text-brand-text/90 text-xl italic">
+      {content}
+    </p>
+  </div>
+
+  <div class="mt-6">
+    <div class="flex items-center">
+      <div class="shrink-0">
+        <Image
+          class="h-8 w-8 rounded-full"
+          src={avatarSrc}
+          alt="Avatar Description"
+          loading={'eager'}
+          width={32}
+          height={32}
+        />
+      </div>
+      <div class="ms-4 grow">
+        <div class="text-brand-text dark:text-brand-text/90 font-bold">
+          {author}
+        </div>
+        <div class="text-xs text-neutral-500">{role}</div>
+      </div>
+    </div>
+  </div>
+</blockquote>

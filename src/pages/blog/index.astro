@@ -1,0 +1,115 @@
+---
+// Import necessary components, modules and types
+import MainLayout from '@/layouts/MainLayout.astro';
+import CardBlog from '@components/ui/cards/CardBlog.astro';
+import CardBlogRecent from '@components/ui/cards/CardBlogRecent.astro';
+import CardInsight from '@components/ui/cards/CardInsight.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { useTranslations } from '@/copywriting';
+
+
+const copy = useTranslations();
+const blogCopy = copy.pages.blog;
+const SITE = copy.site;
+
+// Get all blogs post in the current locale and sort them based on publish date
+const localeBlogEntries = await getCollection('blog', ({ id }) => {
+  return id.startsWith('en/');
+});
+
+const localeInsightsEntries = await getCollection('insights', ({ id }) => {
+  return id.startsWith('en/');
+});
+
+const blogPosts: CollectionEntry<'blog'>[] = localeBlogEntries.sort(
+  (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+// Get all insights posts
+const insightPosts: CollectionEntry<'insights'>[] = localeInsightsEntries;
+
+// Separate the most recent post from others
+const mostRecentPost: CollectionEntry<'blog'> = blogPosts[0];
+const otherPosts: CollectionEntry<'blog'>[] = blogPosts.slice(1);
+
+// Define variables for page content
+const title: string = blogCopy.title;
+const subTitle: string = blogCopy.subTitle;
+const secondTitle: string = blogCopy.secondTitle;
+const secondSubTitle: string = blogCopy.secondSubTitle;
+
+const pageTitle: string = blogCopy.pageTitle;
+const metaDescription = blogCopy.metaDescription;
+const ogTitle = blogCopy.ogTitle;
+const localizedUrl = SITE.url + '/blog';
+---
+
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={ogTitle}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': localizedUrl,
+    url: localizedUrl,
+    name: ogTitle,
+    description: metaDescription,
+    isPartOf: {
+      '@type': 'WebSite',
+      url: SITE.url,
+      name: SITE.title,
+      description: SITE.description,
+    },
+    inLanguage: 'en-US',
+  }}
+>
+  <section class="content-container space-y-8">
+    {/* Page header */}
+    <div class="mx-auto max-w-3xl text-left sm:text-center">
+      <h1
+        class="text-brand-text dark:text-brand-text/90 block text-4xl font-bold tracking-tight text-balance md:text-5xl lg:text-6xl"
+      >
+        {title}
+      </h1>
+
+      <p
+        class="text-brand-text/70 dark:text-brand-text/60 mt-4 text-lg text-pretty"
+      >
+        {subTitle}
+      </p>
+    </div>
+  </section>
+
+  <section class="content-container py-10 lg:py-14">
+    {/* Blog posts grid */}
+    <div class="grid gap-6 lg:grid-cols-2">
+      {otherPosts.map(blogEntry => <CardBlog blogEntry={blogEntry} />)}
+    </div>
+  </section>
+  {/* Most recent blog post */}
+  <section class="content-container py-10 lg:py-14">
+    <CardBlogRecent blogEntry={mostRecentPost} />
+  </section>
+  {/* Insights section */}
+  <section class="content-container py-10 lg:py-14">
+    <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
+      <h2
+        class="text-brand-text dark:text-brand-text/90 text-2xl font-bold md:text-4xl md:leading-tight"
+      >
+        {secondTitle}
+      </h2>
+      <p class="text-brand-text/70 dark:text-brand-text/60 mt-1 text-pretty">
+        {secondSubTitle}
+      </p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        insightPosts.map(insightEntry => (
+          <CardInsight insightEntry={insightEntry} />
+        ))
+      }
+    </div>
+  </section>
+</MainLayout>

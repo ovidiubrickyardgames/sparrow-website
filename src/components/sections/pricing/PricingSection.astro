@@ -1,0 +1,160 @@
+---
+// Import SecondaryCTA component for use in this module
+import SecondaryCTA from '@components/ui/buttons/SecondaryCTA.astro';
+import Icon from '@components/ui/icons/Icon.astro';
+
+// Define props from Astro
+const { pricing } = Astro.props;
+
+// Define TypeScript type for products.
+type Product = {
+  name: string;
+  description: string;
+  price: string;
+  cents: string;
+  billingFrequency: string;
+  features: Array<string>;
+  purchaseBtnTitle: string;
+  purchaseLink: string;
+};
+
+interface PricingSectionProps {
+  title: string;
+  subTitle: string;
+  badge: string;
+  thirdOption: string;
+  btnText: string;
+  pricing: {
+    title: string;
+    subTitle: string;
+    starterKit: Product;
+    professionalToolbox: Product;
+  };
+}
+---
+
+<section
+  class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full"
+>
+  {/* Section heading and sub-heading */}
+  <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
+    <h2
+      class="text-brand-text dark:text-brand-text/90 text-2xl font-bold tracking-tight text-balance md:text-4xl md:leading-tight"
+    >
+      {pricing.title}
+    </h2>
+    <p class="text-brand-text/70 dark:text-brand-text/60 mt-1 text-pretty">
+      {pricing.subTitle}
+    </p>
+  </div>
+  {/* Contains two main product blocks */}
+  <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-0">
+    {/* Starter Kit product details */}
+    <div
+      class="bg-brand-primary/20 border-brand-accent-1/10 w-full rounded-xl border p-6 sm:w-1/2 sm:rounded-r-none sm:p-8 lg:w-1/3"
+    >
+      <div class="mb-4">
+        <h3 class="text-brand-text text-2xl font-bold sm:text-3xl">
+          {pricing.starterKit.name}
+        </h3>
+        <p class="text-brand-accent-1/60">{pricing.starterKit.description}</p>
+      </div>
+
+      <div class="mb-4">
+        <span class="text-brand-text text-4xl font-bold"
+          >{pricing.starterKit.price}</span
+        >
+        <span class="text-brand-text/80 text-lg font-bold"
+          >{pricing.starterKit.cents}</span
+        >
+        <span class="text-brand-accent-1/60 ms-3 text-sm"
+          >{pricing.starterKit.billingFrequency}</span
+        >
+      </div>
+      {
+        /* Features list - automatically created by mapping over `features` array */
+      }
+      <ul class="text-brand-text/80 mb-6 space-y-2">
+        {
+          pricing.starterKit.features.map((feature: string) => (
+            <li class="flex items-center gap-1.5">
+              <Icon name="checkCircle" />
+
+              <span>{feature}</span>
+            </li>
+          ))
+        }
+      </ul>
+      {/* CTA for purchasing the product */}
+      <a
+        href={pricing.starterKit.purchaseLink}
+        data-astro-prefetch
+        class="bg-brand-primary/40 text-brand-text ring-brand-accent-1/20 hover:bg-brand-primary/60 active:text-brand-accent-1 block rounded-lg px-8 py-3 text-center text-sm font-bold outline-hidden transition duration-100 focus-visible:ring-3 md:text-base"
+        >{pricing.starterKit.purchaseBtnTitle}</a
+      >
+    </div>
+    {/* Professional Toolbox product details */}
+    <div
+      class="from-brand-primary to-brand-accent-1 w-full rounded-xl bg-linear-to-tr p-6 shadow-xl sm:w-1/2 sm:p-8"
+    >
+      <div
+        class="mb-4 flex flex-col items-start justify-between gap-4 lg:flex-row"
+      >
+        <div>
+          <h3 class="text-brand-bg text-2xl font-bold sm:text-3xl">
+            {pricing.professionalToolbox.name}
+          </h3>
+          <p class="text-brand-bg/70">
+            {pricing.professionalToolbox.description}
+          </p>
+        </div>
+
+        <span
+          class="bg-opacity-50 bg-brand-bg/20 text-brand-bg order-first inline-block rounded-full px-3 py-1 text-center text-xs font-bold tracking-wider uppercase lg:order-none"
+          >{pricing.badge}</span
+        >
+      </div>
+
+      <div class="mb-4">
+        <span class="text-brand-bg text-6xl font-bold"
+          >{pricing.professionalToolbox.price}</span
+        >
+        <span class="text-brand-bg/60 text-lg font-bold"
+          >{pricing.professionalToolbox.cents}</span
+        >
+        <span class="text-brand-bg/60 ms-3"
+          >{pricing.professionalToolbox.billingFrequency}</span
+        >
+      </div>
+      {
+        /* Features list - automatically created by mapping over `features` array */
+      }
+      <ul class="text-brand-bg/80 mb-6 space-y-2">
+        {
+          pricing.professionalToolbox.features.map((feature: string) => (
+            <li class="flex items-center gap-1.5">
+              <Icon name="checkCircle" />
+
+              <span>{feature}</span>
+            </li>
+          ))
+        }
+      </ul>
+      {/* CTA for purchasing the product */}
+      <a
+        href={pricing.professionalToolbox.purchaseLink}
+        data-astro-prefetch
+        class="bg-brand-bg text-brand-accent-1 ring-brand-accent-1/50 hover:bg-brand-bg/90 active:bg-brand-bg block rounded-lg px-8 py-3 text-center text-sm font-bold outline-hidden transition-[color,background-color,border-color,box-shadow] duration-150 focus-visible:ring-3 md:text-base"
+        >{pricing.professionalToolbox.purchaseBtnTitle}</a
+      >
+    </div>
+  </div>
+  {/* Call to action for Enterprise Solutions */}
+  <div class="mt-8 flex items-center justify-center gap-x-3 md:mt-12">
+    <p class="text-brand-text/70 dark:text-brand-text/60 text-sm">
+      {pricing.thirdOption}
+    </p>
+
+    <SecondaryCTA title={pricing.btnText} url="#" />
+  </div>
+</section>

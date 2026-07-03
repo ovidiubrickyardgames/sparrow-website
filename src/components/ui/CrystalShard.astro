@@ -1,0 +1,63 @@
+---
+// CrystalShard.astro
+---
+
+<div
+  class="crystal-shard-container absolute inset-0 h-full w-full"
+  transition:persist="crystal-shard"
+>
+  <canvas
+    id="crystal-canvas"
+    class="pointer-events-none absolute inset-0 h-full w-full"></canvas>
+</div>
+
+<script>
+  const loadCrystalShard = () => {
+    const canvas = document.getElementById(
+      'crystal-canvas'
+    ) as HTMLCanvasElement;
+    if (!canvas || canvas.dataset.initialized === 'true') return;
+
+    const runInit = async () => {
+      if (canvas.dataset.initialized === 'true') return;
+
+      try {
+        const { CrystalShardApp } =
+          await import('../../assets/scripts/CrystalShardApp');
+        if (canvas.dataset.initialized === 'true') return;
+
+        const instance = new CrystalShardApp(canvas);
+        canvas.dataset.initialized = 'true';
+
+        // Minor delay to let resize and layout settle
+        setTimeout(() => {
+          if (instance && (instance as any).onWindowResize) {
+            (instance as any).onWindowResize();
+          }
+        }, 100);
+      } catch (err) {
+        console.error('Failed to load 3D Crystalline Asset', err);
+      }
+    };
+
+    const startExecution = () => {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => runInit(), { timeout: 2000 });
+      } else {
+        setTimeout(runInit, 800);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      startExecution();
+    } else {
+      window.addEventListener('load', startExecution, { once: true });
+    }
+  };
+
+  // Run initial setup
+  loadCrystalShard();
+
+  // Support Astro View Transitions
+  document.addEventListener('astro:page-load', loadCrystalShard);
+</script>

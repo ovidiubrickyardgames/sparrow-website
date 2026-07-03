@@ -1,0 +1,291 @@
+---
+// HeroWaveBackground.astro
+// Animated Three.js wave field for the hero section background
+// Renders flowing purple/magenta wave lines on a dark background
+---
+
+<div id="hero-wave-canvas" aria-hidden="true"></div>
+
+<style>
+  #hero-wave-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  #hero-wave-canvas canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<script>
+  import * as THREE from 'three';
+
+  function initHeroWaves() {
+    const container = document.getElementById('hero-wave-canvas');
+    if (!container) return;
+
+    // ——— Setup ———
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      55,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      1000
+    );
+    camera.position.set(0, 4.5, 12);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+    });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setClearColor(0x000000, 0);
+    container.appendChild(renderer.domElement);
+
+    // ——— Brand colors ———
+    const brandPrimary = new THREE.Color('#2e1a47');
+    const brandAccent1 = new THREE.Color('#bb86fc');
+    const brandAccent2 = new THREE.Color('#7c4dff');
+    const brandMagenta = new THREE.Color('#e040fb');
+    const brandDeepPurple = new THREE.Color('#4a148c');
+
+    // ——— Wave line geometry ———
+    const LINES = 48;
+    const POINTS_PER_LINE = 120;
+    const SPREAD_X = 28;
+    const SPREAD_Z = 16;
+    const lines: THREE.Line[] = [];
+    const lineDataArr: {
+      geometry: THREE.BufferGeometry;
+      zPos: number;
+      phaseOffset: number;
+    }[] = [];
+
+    for (let i = 0; i < LINES; i++) {
+      const t = i / (LINES - 1); // 0..1
+      const zPos = (t - 0.5) * SPREAD_Z;
+      const phaseOffset = t * Math.PI * 2;
+
+      const positions = new Float32Array(POINTS_PER_LINE * 3);
+      for (let j = 0; j < POINTS_PER_LINE; j++) {
+        const xT = j / (POINTS_PER_LINE - 1);
+        positions[j * 3] = (xT - 0.5) * SPREAD_X;
+        positions[j * 3 + 1] = 0;
+        positions[j * 3 + 2] = zPos;
+      }
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute(
+        'position',
+        new THREE.BufferAttribute(positions, 3)
+      );
+
+      // Color gradient per line — from deep purple → accent purple → magenta
+      const color = new THREE.Color();
+      if (t < 0.3) {
+        color.lerpColors(brandDeepPurple, brandPrimary, t / 0.3);
+      } else if (t < 0.6) {
+        color.lerpColors(brandPrimary, brandAccent1, (t - 0.3) / 0.3);
+      } else if (t < 0.85) {
+        color.lerpColors(brandAccent1, brandMagenta, (t - 0.6) / 0.25);
+      } else {
+        color.lerpColors(brandMagenta, brandAccent2, (t - 0.85) / 0.15);
+      }
+
+      const material = new THREE.LineBasicMaterial({
+        color,
+        transparent: true,
+        opacity: 0.5 + t * 0.5,
+        linewidth: 1,
+      });
+
+      const line = new THREE.Line(geometry, material);
+      scene.add(line);
+      lines.push(line);
+      lineDataArr.push({ geometry, zPos, phaseOffset });
+    }
+
+    // ——— Soft fog for depth ———
+    scene.fog = new THREE.FogExp2(0x121212, 0.025);
+
+    // ——— Ambient glow particles ———
+    const PARTICLE_COUNT = 300;
+    const particlePositions = new Float32Array(PARTICLE_COUNT * 3);
+    const particleSizes = new Float32Array(PARTICLE_COUNT);
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particlePositions[i * 3] = (Math.random() - 0.5) * SPREAD_X * 1.2;
+      particlePositions[i * 3 + 1] = Math.random() * 5 - 1;
+      particlePositions[i * 3 + 2] = (Math.random() - 0.5) * SPREAD_Z * 1.2;
+      particleSizes[i] = Math.random() * 2 + 0.5;
+    }
+
+    const particleGeometry = new THREE.BufferGeometry();
+    particleGeometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(particlePositions, 3)
+    );
+    particleGeometry.setAttribute(
+      'size',
+      new THREE.BufferAttribute(particleSizes, 1)
+    );
+
+    const particleMaterial = new THREE.PointsMaterial({
+      color: brandAccent1,
+      size: 0.08,
+      transparent: true,
+      opacity: 0.55,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      sizeAttenuation: true,
+    });
+
+    const particles = new THREE.Points(particleGeometry, particleMaterial);
+    scene.add(particles);
+
+    // ——— Mouse interaction ———
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+
+    const onMouseMove = (e: MouseEvent) => {
+      targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    };
+
+    // Throttle mousemove for better performance
+    let mouseMoveTimeout: number | null = null;
+    document.addEventListener('mousemove', e => {
+      if (mouseMoveTimeout) return;
+      mouseMoveTimeout = window.setTimeout(() => {
+        onMouseMove(e);
+        mouseMoveTimeout = null;
+      }, 16); // ~60fps throttle
+    });
+
+    // ——— Animation loop ———
+    const clock = new THREE.Clock();
+    let loopId: number | null = null;
+    let isVisible = true;
+
+    function animate() {
+      if (!isVisible) {
+        loopId = requestAnimationFrame(animate);
+        return;
+      }
+
+      loopId = requestAnimationFrame(animate);
+      const elapsed = clock.getElapsedTime();
+
+      // Smooth mouse follow
+      mouseX += (targetMouseX - mouseX) * 0.03;
+      mouseY += (targetMouseY - mouseY) * 0.03;
+
+      // Update wave lines
+      for (let i = 0; i < LINES; i++) {
+        const { geometry, phaseOffset } = lineDataArr[i];
+        const posAttr = geometry.getAttribute(
+          'position'
+        ) as THREE.BufferAttribute;
+        const positions = posAttr.array as Float32Array;
+
+        for (let j = 0; j < POINTS_PER_LINE; j++) {
+          const xT = j / (POINTS_PER_LINE - 1);
+          const x = (xT - 0.5) * SPREAD_X;
+
+          // Multi-layered wave equation - slightly simplified
+          const wave1 = Math.sin(x * 0.4 + elapsed * 0.6 + phaseOffset) * 1.2;
+          const wave2 =
+            Math.sin(x * 0.8 + elapsed * 0.3 + phaseOffset * 0.5) * 0.6;
+          const mouseWave = Math.sin(x * 0.5 + mouseX * 2) * mouseY * 0.3;
+
+          // Intensity envelope — stronger in center
+          const centerFalloff = 1 - Math.pow(Math.abs(xT - 0.5) * 2, 2);
+          const y = (wave1 + wave2 + mouseWave) * (0.3 + centerFalloff * 0.7);
+
+          positions[j * 3 + 1] = y;
+        }
+
+        posAttr.needsUpdate = true;
+      }
+
+      // Subtle camera sway
+      camera.position.x = mouseX * 0.8;
+      camera.position.y = 4.5 + mouseY * 0.5;
+      camera.lookAt(0, 0, 0);
+
+      // Rotate particles slowly
+      particles.rotation.y = elapsed * 0.02;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // ——— Resize handler ———
+    function onResize() {
+      if (!container) return;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    }
+
+    window.addEventListener('resize', onResize);
+
+    // ——— Intersection Observer for performance ———
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            clock.start();
+          } else {
+            clock.stop();
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
+
+    // Cleanup on navigation (Astro view transitions)
+    document.addEventListener('astro:before-swap', () => {
+      isVisible = false;
+      if (loopId) cancelAnimationFrame(loopId);
+      observer.disconnect();
+      renderer.dispose();
+      window.removeEventListener('resize', onResize);
+    });
+  }
+
+  // Defer initialization until the browser is idle so it doesn't block first paint
+  function scheduleInit() {
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(initHeroWaves, { timeout: 1000 });
+    } else {
+      setTimeout(initHeroWaves, 300);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleInit);
+  } else {
+    scheduleInit();
+  }
+
+  // Re-initialize on Astro page swap (view transitions)
+  document.addEventListener('astro:after-swap', scheduleInit);
+</script>

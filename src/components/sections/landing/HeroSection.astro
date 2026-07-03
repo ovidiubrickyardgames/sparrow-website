@@ -1,0 +1,214 @@
+---
+// Import the necessary dependencies
+import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+import SecondaryCTA from '@components/ui/buttons/SecondaryCTA.astro';
+import ReviewComponent from '@components/ui/blocks/ReviewComponent.astro';
+
+
+// Define props from Astro
+const {
+  title,
+  subTitle,
+  primaryBtn,
+  primaryBtnURL,
+  secondaryBtn,
+  secondaryBtnURL,
+  withReview,
+  avatars,
+  starCount,
+  rating,
+  reviews,
+} = Astro.props;
+
+// Define TypeScript interface for props
+interface Props {
+  title: string;
+  subTitle?: string;
+  primaryBtn?: string;
+  primaryBtnURL?: string;
+  secondaryBtn?: string;
+  secondaryBtnURL?: string;
+  withReview?: boolean;
+  avatars?: Array<string>;
+  starCount?: number;
+  rating?: string;
+  reviews?: string;
+}
+---
+
+{/* Hero section */}
+<div class="hero-section-wrapper relative overflow-hidden pb-24 lg:pb-0">
+  {/* Backgrounds */}
+  <div class="hero-background-container absolute inset-0">
+    <div class="hero-gradient-overlay"></div>
+  </div>
+
+  {/* Dot grid overlay */}
+  <div class="dot-grid pointer-events-none absolute inset-0 z-[2]"></div>
+
+
+
+  {/* Hero layout: copy left */}
+  <section
+    class="content-container relative z-10 flex grow flex-col items-center justify-center pt-32 pb-24 sm:pt-40 lg:flex-row lg:justify-start lg:pt-0 lg:pb-0"
+  >
+    {/* Left — copy */}
+    <div
+      class="premium-card relative z-20 flex w-full max-w-xl flex-col items-center rounded-2xl border border-white/10 bg-black/40 p-6 text-center backdrop-blur-xl sm:p-8 lg:items-start lg:p-12 lg:text-left"
+    >
+      {/* Monospace code pre-header */}
+      <div
+        class="tech-label text-brand-accent-2/80 mb-4 flex items-center gap-2 font-ui text-xs tracking-widest sm:mb-6 sm:text-sm"
+      >
+        <span class="bg-brand-accent-2/40 inline-block h-px w-8"></span>
+        <span>// applied_rd.init()</span>
+        <span class="bg-brand-accent-2/40 inline-block h-px w-8"></span>
+      </div>
+
+      <h1
+        class="text-brand-text dark:text-brand-text/90 block text-3xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl lg:leading-[1.1]"
+      >
+        <Fragment set:html={title} /><span
+          class="cursor-blink text-brand-accent-2">_</span
+        >
+      </h1>
+
+      {
+        subTitle && (
+          <p class="text-brand-text/70 dark:text-brand-text/60 mt-4 max-w-lg text-sm leading-relaxed sm:mt-6 sm:text-lg lg:text-left">
+            {subTitle}
+          </p>
+        )
+      }
+
+      <div
+        class="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:w-auto sm:flex-row sm:gap-4 lg:justify-start"
+      >
+        {primaryBtn && <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />}
+        {
+          secondaryBtn && (
+            <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
+          )
+        }
+      </div>
+
+      {
+        withReview ? (
+          <div class="mt-8 sm:mt-12">
+            <ReviewComponent
+              avatars={avatars}
+              starCount={starCount}
+              rating={rating}
+              reviews={reviews}
+            />
+          </div>
+        ) : (
+          ''
+        )
+      }
+    </div>
+  </section>
+
+</div>
+
+<style>
+  .hero-section-wrapper {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .hero-background-container {
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+  }
+
+  .hero-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse 80% 80% at 50% 50%,
+        rgba(18, 18, 18, 0.9) 0%,
+        rgba(18, 18, 18, 0.4) 50%,
+        transparent 100%
+      ),
+      linear-gradient(to bottom, rgba(18, 18, 18, 0.6) 0%, transparent 40%);
+  }
+
+  @media (min-width: 1024px) {
+    .hero-gradient-overlay {
+      background:
+        radial-gradient(
+          ellipse 70% 70% at 20% 50%,
+          rgba(18, 18, 18, 0.85) 0%,
+          transparent 70%
+        ),
+        linear-gradient(to bottom, rgba(18, 18, 18, 0.4) 0%, transparent 40%);
+    }
+  }
+
+  /* Dot grid */
+  .dot-grid {
+    background-image: radial-gradient(
+      circle,
+      rgba(187, 134, 252, 0.12) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+  }
+
+  /* Blinking cursor in the headline */
+  .cursor-blink {
+    display: inline-block;
+    margin-left: 2px;
+    animation: blink 1.1s step-end infinite;
+    font-weight: 300;
+  }
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* ── Bento stat cards ────────────────────────────── */
+  .stat-grid {
+    padding: 0 12px 12px;
+  }
+
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 8px;
+    border: 1px solid rgba(187, 134, 252, 0.14);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #bb86fc;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--font-ui);
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 4px;
+  }
+</style>

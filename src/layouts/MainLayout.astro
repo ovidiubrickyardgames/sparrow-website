@@ -1,0 +1,185 @@
+---
+// Importing necessary components
+import Meta from '@components/Meta.astro';
+import Navbar from '@components/sections/navbar&footer/Navbar.astro';
+import FooterSection from '@components/sections/navbar&footer/FooterSection.astro';
+import { useTranslations } from '@/copywriting';
+import '@styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+
+const copy = useTranslations();
+const SITE = copy.site;
+
+// Setting expected props
+const {
+  title = SITE.title,
+  meta,
+  structuredData,
+  customDescription = null,
+  customOgTitle = null,
+} = Astro.props;
+
+const cleanPath = Astro.url.pathname;
+const isHome = cleanPath === '/' || cleanPath === '';
+const isOutbound = cleanPath === '/outbound' || cleanPath === '/outbound/';
+const isHeroPage = isHome || isOutbound;
+
+// Interface to type-check the properties
+interface Props {
+  title?: string;
+  meta?: string;
+  structuredData?: object;
+  customDescription?: string | null;
+  customOgTitle?: string | null;
+}
+---
+
+<html lang="en" class="scrollbar-hide scroll-pt-16">
+  <head>
+    {/* Adding metadata to the HTML document */}
+    <Meta
+      meta={meta}
+      structuredData={structuredData}
+      customDescription={customDescription}
+      customOgTitle={customOgTitle}
+    />
+    {/* Define the title of the page */}
+    <title>{title}</title>
+    {/* Preconnect to font CDNs for faster loading */}
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <ClientRouter fallback="swap" />
+
+    <script is:inline>
+      // Add 'js' class to html element for reveal animations
+      document.documentElement.classList.add('js');
+    </script>
+
+    <script>
+      let phase1Loaded = false;
+      let phase2Loaded = false;
+      let revealInitFunc: (() => void) | null = null;
+      let cardsInitFunc: (() => void) | null = null;
+
+      const queueIdle = (fn: () => void) => {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(fn);
+        } else {
+          setTimeout(fn, 100);
+        }
+      };
+
+      // Phase 1: Lightweight scripts — premiumCards spotlight effect + Preline UI
+      // These are small and needed immediately for interactive elements.
+      const loadPhase1 = async () => {
+        if (phase1Loaded) return;
+        try {
+          const [{ initPremiumCards }] = await Promise.all([
+            import('@scripts/premiumCards.js'),
+            import('preline'),
+          ]);
+          cardsInitFunc = initPremiumCards;
+          phase1Loaded = true;
+        } catch (error) {
+          console.error('Failed to load phase-1 scripts:', error);
+        }
+      };
+
+      // Phase 2: Heavy animation scripts — GSAP + ScrollTrigger
+      // Deferred to a second idle slice so the browser gets a breath between phases.
+      const loadPhase2 = async () => {
+        if (phase2Loaded) return;
+        try {
+          const { initRevealAnimations } =
+            await import('@scripts/revealAnimations.js');
+          revealInitFunc = initRevealAnimations;
+          phase2Loaded = true;
+        } catch (error) {
+          console.error('Failed to load phase-2 scripts:', error);
+        }
+      };
+
+      const initUI = () => {
+        if (cardsInitFunc) cardsInitFunc();
+        if (revealInitFunc) revealInitFunc();
+
+        // Only run Preline's DOM scan if this page actually contains Preline components.
+        // Skipping this on pages like the homepage avoids an unnecessary full DOM traversal.
+        const hasPrelineComponents = document.querySelector(
+          '[data-hs-collapse], [data-hs-overlay], [data-hs-tab], [data-hs-accordion], .hs-dropdown'
+        );
+        if (
+          hasPrelineComponents &&
+          typeof window !== 'undefined' &&
+          (window as any).HSStaticMethods?.autoInit
+        ) {
+          (window as any).HSStaticMethods.autoInit();
+        }
+      };
+
+      const setup = async () => {
+        // Load phase 1 first, run UI, then queue phase 2 in the next idle slice.
+        await loadPhase1();
+        initUI();
+        queueIdle(async () => {
+          await loadPhase2();
+          // Re-run reveal animations once GSAP is available
+          if (revealInitFunc) revealInitFunc();
+        });
+      };
+
+      // Initial page load — defer to idle so critical rendering finishes first.
+      queueIdle(() => setup());
+
+      // Handle Astro View Transitions — re-run on every subsequent navigation.
+      // rAF lets the browser paint the new page before we do any work.
+      document.addEventListener('astro:page-load', () => {
+        requestAnimationFrame(() => setup());
+      });
+    </script>
+  </head>
+  <body
+    class:list={[
+      "bg-brand-bg text-brand-text selection:bg-brand-accent-1 selection:text-brand-bg flex min-h-screen flex-col overflow-x-hidden",
+      isOutbound ? "light-theme" : ""
+    ]}
+  >
+    {
+      /*
+    Setting up the main structure of the page.
+    The Navbar is placed at the top, with a slot for the main content and FooterSection at the bottom.
+    */
+    }
+    <div class="flex grow flex-col">
+      <Navbar />
+      <main class={isHeroPage ? '' : 'pt-28 lg:pt-36'}>
+        <slot />
+      </main>
+    </div>
+    <FooterSection />
+    <style>
+      /* CSS rules for the page scrollbar */
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,267 @@
+---
+// Import the necessary dependencies.
+import AuthBtn from '@components/ui/buttons/AuthBtn.astro';
+import ContactIconBlock from '@components/ui/blocks/ContactIconBlock.astro';
+import TextInput from '@components/ui/forms/input/TextInput.astro';
+import EmailContactInput from '@components/ui/forms/input/EmailContactInput.astro';
+import PhoneInput from '@components/ui/forms/input/PhoneInput.astro';
+import TextAreaInput from '@components/ui/forms/input/TextAreaInput.astro';
+import Icon from '@components/ui/icons/Icon.astro';
+import { useTranslations } from '@/copywriting';
+
+// Fetch the translations based on the current locale
+const pathParts = Astro.url.pathname.split('/');
+const currentLocale = ['fr', 'ro', 'de'].includes(pathParts[1])
+  ? pathParts[1]
+  : Astro.currentLocale || 'en';
+const copy = useTranslations(currentLocale);
+const contactCopy = copy.pages.contact;
+
+const {
+  title,
+  subTitle,
+  formTitle,
+  formSubTitle,
+  webhookUrl,
+  fields,
+  submitBtnText,
+  sendingText,
+  successText,
+  errorText,
+  phoneErrorText,
+} = contactCopy;
+---
+
+{/* Contact Us */}
+<section class="mx-auto max-w-[85rem] px-4 pb-10 sm:px-6 lg:px-8 lg:pb-14">
+  <div class="mx-auto max-w-2xl lg:max-w-5xl">
+    <div class="text-center">
+      <h1
+        class="text-brand-text dark:text-brand-text/90 text-2xl font-bold tracking-tight text-balance md:text-4xl md:leading-tight"
+      >
+        {title}
+      </h1>
+      <p class="text-brand-text/70 dark:text-brand-text/60 mt-1 text-pretty">
+        {subTitle}
+      </p>
+    </div>
+
+    <div class="mt-12 flex justify-center">
+      <div class="flex w-full max-w-xl flex-col rounded-xl p-4 sm:p-6 lg:p-8">
+        <h2
+          class="text-brand-text/80 dark:text-brand-text/90 mb-8 text-xl font-bold"
+        >
+          {formTitle}
+        </h2>
+        {
+          /* Form for user input with various input fields.-->
+        {/* Each field utilizes a different input component for the specific type of input (text, email, phone, and textarea)*/
+        }
+        <form
+          id="contact-form"
+          data-webhook={webhookUrl}
+          data-sending={sendingText}
+          data-success={successText}
+          data-error={errorText}
+          data-phone-error={phoneErrorText}
+        >
+          <div class="grid gap-4">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <TextInput
+                id="hs-firstname-contacts"
+                label={fields.firstName}
+                name="hs-firstname-contacts"
+                required={true}
+              />
+              <TextInput
+                id="hs-lastname-contacts"
+                label={fields.lastName}
+                name="hs-lastname-contacts"
+                required={true}
+              />
+            </div>
+            <EmailContactInput
+              id="hs-email-contacts"
+              label={fields.email}
+              required={true}
+            />
+            <PhoneInput
+              id="hs-phone-number"
+              label={fields.phone}
+            />
+            <TextAreaInput
+              id="hs-about-contacts"
+              label={fields.details}
+              name="hs-about-contacts"
+              required={true}
+            />
+          </div>
+
+          <div class="mt-4 grid">
+            <AuthBtn title={submitBtnText} />
+          </div>
+
+          <div class="mt-3 text-center">
+            <p class="text-brand-text/70 dark:text-brand-text/60 text-sm">
+              {formSubTitle}
+            </p>
+          </div>
+        </form>
+      </div>
+
+      {
+        /*ContactIconBlocks are used to display different methods of contacting, including visiting office, email, browsing knowledgebase, and FAQ.*/
+      }
+      {
+        /*
+      <div class="divide-y divide-neutral-300 dark:divide-neutral-700">
+        <ContactIconBlock
+          heading="Knowledgebase"
+          content="Browse through all of our knowledgebase articles."
+          isLinkVisible={true}
+          linkTitle="Visit guides & tutorials"
+          linkURL="#"
+          isArrowVisible={true}
+          ><Icon name="question" />
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading="FAQ"
+          content="Explore our FAQ for quick, clear answers to common queries."
+          isLinkVisible={true}
+          linkTitle="Visit FAQ"
+          linkURL="#"
+          isArrowVisible={true}
+          ><Icon name="chatBubble" />
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading="Visit our office"
+          content="UK Sparrow"
+          isAddressVisible={true}
+          addressContent="72 Union Terrace, E10 4PE London"
+          ><Icon name="mapPin" />
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading="Contact us by email"
+          content="Prefer the written word? Drop us an email at"
+          isLinkVisible={true}
+          linkTitle="support@www.sparrow.com"
+          linkURL="#"
+          ><Icon name="envelopeOpen" />
+        </ContactIconBlock>
+      </div>
+      */
+      }
+    </div>
+  </div>
+</section>
+<script>
+  import intlTelInput from 'intl-tel-input/intlTelInputWithUtils';
+
+  const contactForm = document.getElementById(
+    'contact-form'
+  ) as HTMLFormElement;
+  const phoneInput = document.getElementById(
+    'hs-phone-number'
+  ) as HTMLInputElement;
+  const submitBtn = contactForm?.querySelector(
+    'button[type="submit"]'
+  ) as HTMLButtonElement;
+  const originalBtnText = submitBtn?.textContent;
+  
+  const webhookUrl = contactForm?.dataset.webhook;
+  const sendingText = contactForm?.dataset.sending || 'Sending...';
+  const successText = contactForm?.dataset.success || 'Message Sent!';
+  const errorText = contactForm?.dataset.error || 'Error! Try again';
+  const phoneErrorText = contactForm?.dataset.phoneError || 'Please enter a valid phone number.';
+
+  let iti: any;
+  if (phoneInput) {
+    iti = intlTelInput(phoneInput, {
+      initialCountry: 'auto',
+      geoIpLookup: async () => {
+        try {
+          const res = await fetch('https://ipapi.co/json');
+          const data = await res.json();
+          return data.country_code;
+        } catch {
+          return 'us';
+        }
+      },
+      separateDialCode: true,
+    });
+  }
+
+  contactForm?.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!contactForm || !submitBtn || !webhookUrl) return;
+
+    if (!contactForm.checkValidity()) {
+      contactForm.reportValidity();
+      return;
+    }
+
+    // Phone validation
+    if (iti && !iti.isValidNumber()) {
+      console.warn('Form submission blocked: Invalid phone number.');
+      const errorMsg = document.createElement('p');
+      errorMsg.className = 'text-red-500 text-xs mt-1 phone-error';
+      errorMsg.textContent = phoneErrorText;
+
+      // Remove existing error if any
+      const container = phoneInput.closest('.phone-input-container');
+      container?.querySelector('.phone-error')?.remove();
+      container?.appendChild(errorMsg);
+
+      phoneInput.focus();
+      return;
+    } else {
+      phoneInput
+        .closest('.phone-input-container')
+        ?.querySelector('.phone-error')
+        ?.remove();
+    }
+
+    // Change button state
+    submitBtn.disabled = true;
+    submitBtn.textContent = sendingText;
+
+    try {
+      const formData = new FormData(contactForm);
+      const data = Object.fromEntries(formData.entries());
+
+      // Include full international number
+      if (iti) {
+        data['hs-phone-number'] = iti.getNumber();
+      }
+
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        submitBtn.textContent = successText;
+        contactForm.reset();
+        setTimeout(() => {
+          submitBtn.textContent = originalBtnText;
+          submitBtn.disabled = false;
+        }, 3000);
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      submitBtn.textContent = errorText;
+      setTimeout(() => {
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+      }, 3000);
+    }
+  });
+</script>

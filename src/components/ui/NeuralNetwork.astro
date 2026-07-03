@@ -1,0 +1,66 @@
+---
+// NeuralNetwork.astro
+---
+
+<div
+  class="neural-network-container absolute inset-0 h-full w-full"
+  transition:persist="neural-network"
+>
+  <canvas
+    id="neural-canvas"
+    class="pointer-events-none absolute inset-0 h-full w-full"></canvas>
+</div>
+
+<script>
+  const loadNeuralNetwork = () => {
+    const canvas = document.getElementById(
+      'neural-canvas'
+    ) as HTMLCanvasElement;
+    if (!canvas || canvas.dataset.initialized === 'true') return;
+
+    const runInit = async () => {
+      if (canvas.dataset.initialized === 'true') return;
+
+      try {
+        const { NeuralNetwork } =
+          await import('../../assets/scripts/NeuralNetworkApp');
+        if (canvas.dataset.initialized === 'true') return;
+
+        const instance = new NeuralNetwork(canvas);
+        canvas.dataset.initialized = 'true';
+
+        setTimeout(() => {
+          if (instance && (instance as any).onWindowResize) {
+            (instance as any).onWindowResize();
+          }
+        }, 100);
+      } catch (err) {
+        console.error('Failed to load 3D Neural Network', err);
+      }
+    };
+
+    const startExecution = () => {
+      // Use requestIdleCallback to avoid blocking the main thread during initial load
+      // This is better for PageSpeed benchmarks than immediate execution or interaction listeners
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => runInit(), { timeout: 2000 });
+      } else {
+        // Fallback for browsers without requestIdleCallback
+        setTimeout(runInit, 1000);
+      }
+    };
+
+    // Initialize after the page is fully loaded to avoid competing with critical assets
+    if (document.readyState === 'complete') {
+      startExecution();
+    } else {
+      window.addEventListener('load', startExecution, { once: true });
+    }
+  };
+
+  // Run the setup
+  loadNeuralNetwork();
+
+  // Handle Astro page transitions
+  document.addEventListener('astro:page-load', loadNeuralNetwork);
+</script>

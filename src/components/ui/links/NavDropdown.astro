@@ -1,0 +1,73 @@
+---
+import Icon from '../icons/Icon.astro';
+
+const { name, url, items } = Astro.props;
+
+interface DropdownItem {
+  name: string;
+  url: string;
+  subcategories?: string[];
+}
+
+interface Props {
+  name: string;
+  url: string;
+  items: DropdownItem[];
+}
+---
+
+<!-- Desktop View: Clickable link + Hover dropdown -->
+<div
+  class="hs-dropdown relative hidden py-3 [--adaptive:none] [--strategy:absolute] md:block md:px-3 md:py-4 md:[--trigger:hover]"
+>
+  <a
+    href={url}
+    class="text-brand-text/70 dark:text-brand-text/60 flex items-center text-sm font-medium transition-colors duration-300 hover:text-neutral-500 2xl:text-base dark:hover:text-neutral-500"
+  >
+    {name}
+    <Icon name="chevronDown" class="ms-1 size-3" />
+  </a>
+
+  <div
+    class="hs-dropdown-menu hs-dropdown-open:opacity-100 border-brand-accent-1/20 start-1/2 top-[95%] z-50 hidden w-64 -translate-x-1/2 rounded-xl border bg-[#ffffff]/95 py-2 opacity-0 backdrop-blur-xl transition-[opacity,margin] duration-[0.1ms] before:absolute before:start-0 before:-top-5 before:h-5 before:w-full md:p-2 md:shadow-2xl md:duration-[150ms]"
+  >
+    <div class="flex flex-col gap-1">
+      {
+        items.map(item => (
+          <a
+            class="group hover:bg-brand-accent-1/10 flex items-center justify-center rounded-lg px-3 py-2 text-center transition-all duration-300"
+            href={item.url}
+          >
+            <p class="text-brand-text/80 group-hover:text-brand-accent-1 text-sm font-medium transition-colors">
+              {item.name}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<!-- Mobile View: Persistent list, no dropdown logic -->
+<div class="flex flex-col py-3 md:hidden">
+  <a
+    href={url}
+    class="text-brand-text/70 mb-2 flex items-center text-sm font-medium transition-colors duration-300"
+  >
+    {name}
+  </a>
+  <div
+    class="border-brand-accent-1/20 mb-4 ml-4 flex flex-col gap-y-2 border-l pl-4"
+  >
+    {
+      items.map(item => (
+        <a
+          class="text-brand-text/50 hover:text-brand-accent-1 text-[0.7rem] transition-colors"
+          href={item.url}
+        >
+          {item.name}
+        </a>
+      ))
+    }
+  </div>
+</div>

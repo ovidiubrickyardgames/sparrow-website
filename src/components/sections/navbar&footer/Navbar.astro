@@ -1,0 +1,150 @@
+---
+//Import relevant dependencies
+
+import NavLink from '@components/ui/links/NavLink.astro';
+import { useTranslations } from '@/copywriting';
+import BrandLogo from '@components/BrandLogo.astro';
+
+const copy = useTranslations();
+const strings = copy.navigation;
+const homeUrl = '/';
+---
+
+{/* Main header component */}
+<header
+  class="fixed inset-x-0 top-4 z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-center"
+>
+  {/* Navigation container */}
+  <nav
+    id="main-nav"
+    class="premium-spotlight border-brand-accent-1/20 relative mx-auto w-[calc(100%-2rem)] rounded-[36px] border-2 bg-[#ffffff]/90 px-4 py-4 backdrop-blur-md transition-all duration-500 ease-in-out md:flex md:max-w-4xl md:items-center md:justify-between md:px-6 md:py-3 lg:px-8"
+    aria-label="Global"
+  >
+    <div class="flex items-center justify-between">
+      {/* Brand logo */}
+      <a
+        class="flex-none rounded-lg text-xl font-bold ring-zinc-500 outline-hidden focus-visible:ring-3 dark:ring-zinc-200 dark:focus:outline-hidden"
+        href={homeUrl}
+        aria-label="Brand"
+      >
+        <BrandLogo class="h-auto w-auto" />
+      </a>
+      {/* Collapse toggle for smaller screens */}
+      <div class="mr-5 ml-auto md:hidden">
+        <button
+          type="button"
+          class="hs-collapse-toggle text-brand-text hover:bg-brand-accent-1/20 flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition duration-300 disabled:pointer-events-none disabled:opacity-50 dark:focus:outline-hidden"
+          data-hs-collapse="#navbar-collapse-with-animation"
+          aria-controls="navbar-collapse-with-animation"
+          aria-label="Toggle navigation"
+        >
+          <svg
+            class="hs-collapse-open:hidden h-[1.25rem] w-[1.25rem] shrink-0"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" x2="21" y1="6" y2="6"></line>
+            <line x1="3" x2="21" y1="12" y2="12"></line>
+            <line x1="3" x2="21" y1="18" y2="18"></line>
+          </svg>
+          <svg
+            class="hs-collapse-open:block hidden h-[1.25rem] w-[1.25rem] shrink-0"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    {/* Contains navigation links */}
+    <div
+      id="navbar-collapse-with-animation"
+      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 md:block md:overflow-visible"
+    >
+      {/* Navigation links container */}
+      <div
+        class="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-4 md:gap-y-0 md:ps-7 lg:gap-x-7"
+      >
+        {/* Navigation links and Authentication component */}
+        {
+          strings.navBarLinks.map(link => {
+            if (link.url === '#audit') {
+              return (
+                <a
+                  href={link.url}
+                  class="ml-4 inline-flex items-center justify-center gap-x-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-[0_4px_16px_0_rgba(37,99,235,0.25)] outline-hidden ring-zinc-500 transition duration-300 hover:bg-blue-500 hover:shadow-[0_6px_24px_0_rgba(37,99,235,0.45)] focus-visible:ring-3 active:bg-blue-700 dark:ring-zinc-200"
+                >
+                  {link.name}
+                </a>
+              );
+            }
+            return <NavLink url={link.url} name={link.name} />;
+          })
+        }
+
+        <!--<Authentication />-->
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div id="nav-sentinel" class="pointer-events-none absolute top-0 h-px w-full">
+</div>
+
+<script>
+  let navbarObserver: IntersectionObserver | undefined;
+
+  function initNavbar() {
+    const nav = document.getElementById('main-nav');
+    const sentinel = document.getElementById('nav-sentinel');
+
+    if (nav && sentinel) {
+      // Disconnect existing observer if it exists (relevant for persisted components)
+      if (navbarObserver) {
+        navbarObserver.disconnect();
+      }
+
+      navbarObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+              // Scrolled down
+              nav.classList.add('md:max-w-6xl');
+              nav.classList.remove('md:max-w-4xl');
+            } else {
+              // At the top
+              nav.classList.remove('md:max-w-6xl');
+              nav.classList.add('md:max-w-4xl');
+            }
+          });
+        },
+        {
+          rootMargin: '10px 0px 0px 0px',
+          threshold: 0,
+        }
+      );
+
+      navbarObserver.observe(sentinel);
+    }
+  }
+
+  // Initial setup
+  initNavbar();
+
+  // Re-run setup on page transitions
+  document.addEventListener('astro:page-load', initNavbar);
+</script>
