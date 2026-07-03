@@ -146,7 +146,7 @@ export const en: CopywritingSchema = {
       metaDescription: 'We Build, Manage, and Close Your B2B Pipeline. Sparrow is an end-to-end outbound sales partner.',
       hero: {
         eyebrowLabel: 'OUTBOUND SALES PARTNERSHIP',
-        titleHtml: 'We Build, Manage, and <span class="text-brand-accent-1">Close</span> Your B2B Pipeline.',
+        titleHtml: 'We Build, Manage, and <span class="text-brand-accent-1 italic">Close</span> Your B2B Pipeline.',
         subTitle: 'Stop handing your closers bad leads. We pair AI targeting with human sales reps to find your buyers, pitch your product, and book meetings directly on your calendar.',
         primaryBtn: 'Audit your pipeline →',
         primaryBtnURL: '#audit',
@@ -180,7 +180,7 @@ export const en: CopywritingSchema = {
         ]
       },
       process: {
-        titleHtml: 'Our Outbound <span class="text-brand-accent-1">Process</span>',
+        titleHtml: 'Our Outbound Process',
         subTitle: 'Predictable revenue requires a strategy that adapts. We test, learn, and adjust to your market every week.',
         phases: [
           {

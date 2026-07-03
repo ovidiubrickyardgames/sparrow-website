@@ -120,7 +120,7 @@
 
   /* Brand Colors */
   --color-brand-primary: #0a1128;
-  --color-brand-accent-1: #0d2d8a;
+  --color-brand-accent-1: #1a3faa;
   --color-brand-accent-2: #8ba1b7;
   --color-brand-bg: #fafafa;
   --color-brand-text: #0f172a;
@@ -305,65 +305,20 @@
   /* Premium Card Design System */
   .premium-card,
   .premium-spotlight {
-    @apply relative transition-all duration-500 ease-out;
+    @apply relative transition-all duration-500 ease-in-out;
   }
 
   .premium-card {
-    @apply border-brand-accent-1/20 rounded-2xl border-[3px] bg-[#fafafa]/40 backdrop-blur-md;
+    @apply rounded-[6px] border border-[#e8e8e8] bg-[#ffffff];
   }
 
   .premium-spotlight {
     transform-style: preserve-3d;
   }
 
-  .premium-card::before,
-  .premium-spotlight::before {
-    content: '';
-    @apply absolute inset-0 -z-1 rounded-[inherit] opacity-0 transition-opacity duration-500;
-    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(13, 45, 138, 0.08),
-        transparent 40%);
-  }
-
   .premium-card:hover,
   .premium-spotlight:hover {
-    @apply border-brand-accent-1/60 shadow-[12px_12px_0px_0px_rgba(13,45,138,0.1)];
-  }
-
-  .premium-card:hover::before,
-  .premium-spotlight:hover::before {
-    @apply opacity-100;
-  }
-
-  .premium-card h3,
-  .premium-spotlight h3 {
-    @apply font-display tracking-tight transition-colors duration-300;
-  }
-
-  .premium-card:hover h3,
-  .premium-spotlight:hover h3 {
-    @apply text-brand-accent-1;
-  }
-
-  /* Premium Card Light Theme Overrides (when parent wrapper is white) */
-  .bg-white .premium-card {
-    border-color: var(--color-zinc-200);
-    background-color: rgba(250, 250, 250, 0.8);
-    box-shadow: var(--shadow-xs);
-    backdrop-filter: blur(12px);
-  }
-
-  .bg-white .premium-card:hover {
-    border-color: rgba(37, 99, 235, 0.3);
-    box-shadow: 12px 12px 0px 0px rgba(37, 99, 235, 0.06);
-  }
-
-  .bg-white .premium-card h3 {
-    color: var(--color-zinc-900);
-  }
-
-  .bg-white .premium-card:hover h3 {
-    color: var(--color-brand-accent-1);
+    @apply shadow-[0_4px_24px_rgba(0,0,0,0.06)];
   }
 
   /* Standard Content Container for centering and professional padding */

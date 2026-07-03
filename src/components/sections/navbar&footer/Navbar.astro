@@ -1,13 +1,13 @@
 ---
 //Import relevant dependencies
 
-import NavLink from '@components/ui/links/NavLink.astro';
-import { useTranslations } from '@/copywriting';
-import BrandLogo from '@components/BrandLogo.astro';
+import NavLink from "@components/ui/links/NavLink.astro";
+import { useTranslations } from "@/copywriting";
+import BrandLogo from "@components/BrandLogo.astro";
 
 const copy = useTranslations();
 const strings = copy.navigation;
-const homeUrl = '/';
+const homeUrl = "/";
 ---
 
 {/* Main header component */}
@@ -17,7 +17,7 @@ const homeUrl = '/';
   {/* Navigation container */}
   <nav
     id="main-nav"
-    class="relative mx-auto w-[calc(100%-2rem)] rounded-2xl border border-[#e8e8e8] bg-[#f9f9f9] px-4 py-4 transition-all duration-200 ease-in-out md:flex md:max-w-4xl md:items-center md:justify-between md:px-6 md:py-3 lg:px-8 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
+    class="relative mx-auto w-[calc(100%-2rem)] rounded-[10px] border border-[#e8e8e8]/50 bg-white/75 backdrop-blur-xl px-4 py-4 transition-all duration-200 ease-in-out md:flex md:max-w-4xl md:items-center md:justify-between md:px-6 md:py-3 lg:px-8 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
     aria-label="Global"
   >
     <div class="flex items-center justify-between">
@@ -81,8 +81,8 @@ const homeUrl = '/';
       >
         {/* Navigation links and Authentication component */}
         {
-          strings.navBarLinks.map(link => {
-            if (link.url === '#audit') {
+          strings.navBarLinks.map((link) => {
+            if (link.url === "#audit") {
               return (
                 <a
                   href={link.url}
@@ -109,8 +109,8 @@ const homeUrl = '/';
   let navbarObserver: IntersectionObserver | undefined;
 
   function initNavbar() {
-    const nav = document.getElementById('main-nav');
-    const sentinel = document.getElementById('nav-sentinel');
+    const nav = document.getElementById("main-nav");
+    const sentinel = document.getElementById("nav-sentinel");
 
     if (nav && sentinel) {
       // Disconnect existing observer if it exists (relevant for persisted components)
@@ -119,23 +119,23 @@ const homeUrl = '/';
       }
 
       navbarObserver = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
+        (entries) => {
+          entries.forEach((entry) => {
             if (!entry.isIntersecting) {
               // Scrolled down
-              nav.classList.add('md:max-w-6xl');
-              nav.classList.remove('md:max-w-4xl');
+              nav.classList.add("md:max-w-6xl");
+              nav.classList.remove("md:max-w-4xl");
             } else {
               // At the top
-              nav.classList.remove('md:max-w-6xl');
-              nav.classList.add('md:max-w-4xl');
+              nav.classList.remove("md:max-w-6xl");
+              nav.classList.add("md:max-w-4xl");
             }
           });
         },
         {
-          rootMargin: '10px 0px 0px 0px',
+          rootMargin: "10px 0px 0px 0px",
           threshold: 0,
-        }
+        },
       );
 
       navbarObserver.observe(sentinel);
@@ -146,5 +146,5 @@ const homeUrl = '/';
   initNavbar();
 
   // Re-run setup on page transitions
-  document.addEventListener('astro:page-load', initNavbar);
+  document.addEventListener("astro:page-load", initNavbar);
 </script>
