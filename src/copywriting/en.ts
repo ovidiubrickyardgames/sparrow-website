@@ -181,7 +181,7 @@ export const en: CopywritingSchema = {
         ]
       },
       process: {
-        titleHtml: 'Our Outbound Process',
+        titleHtml: 'Our Outbound <span class="font-bold">Process</span>',
         subTitle: 'Predictable revenue requires a strategy that adapts. We test, learn, and adjust to your market every week.',
         phases: [
           {

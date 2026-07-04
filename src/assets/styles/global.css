@@ -120,8 +120,8 @@
 
   /* Brand Colors */
   --color-brand-primary: #0a1128;
-  --color-brand-accent-1: #1a3faa;
-  --color-brand-accent-2: #8ba1b7;
+  --color-brand-accent-1: #0a0a0a;
+  --color-brand-accent-2: #52525b;
   --color-brand-bg: #fafafa;
   --color-brand-text: #0f172a;
 
@@ -346,7 +346,7 @@ body.light-theme #main-nav button {
 
 body.light-theme #main-nav a:hover,
 body.light-theme #main-nav button:hover {
-  @apply !text-blue-600;
+  @apply !text-zinc-900;
 }
 
 body.light-theme .brand-logo-text {
@@ -369,7 +369,7 @@ body.light-theme footer span {
 }
 
 body.light-theme footer a:hover {
-  @apply !text-blue-600;
+  @apply !text-zinc-900;
 }
 
 /* NavDropdown Overrides */
@@ -384,7 +384,7 @@ body.light-theme #main-nav .hs-dropdown-menu p {
 }
 
 body.light-theme #main-nav .hs-dropdown-menu a:hover p {
-  @apply !text-blue-600;
+  @apply !text-zinc-900;
 }
 
 body.light-theme #main-nav .hs-dropdown-menu a:hover {
