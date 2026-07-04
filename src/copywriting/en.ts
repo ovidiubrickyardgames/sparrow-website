@@ -146,7 +146,7 @@ export const en: CopywritingSchema = {
       metaDescription: 'We Build, Manage, and Close Your B2B Pipeline. Sparrow is an end-to-end outbound sales partner.',
       hero: {
         eyebrowLabel: 'DONE-FOR-YOU • PERFORMANCE-BASED',
-        titleHtml: 'We handle the pipeline.<br/>You just <span class="text-brand-accent-1 italic">close.</span>',
+        titleHtml: 'We handle the sales pipeline.<br/>You just <span class="text-brand-accent-1 italic">close.</span>',
         subTitle: "We find your buyers, run the outreach, and book the meetings — your closers just show up and do what they're best at.",
         primaryBtn: 'Get a free pipeline review →',
         primaryBtnSub: '15-min call · no commitment',
