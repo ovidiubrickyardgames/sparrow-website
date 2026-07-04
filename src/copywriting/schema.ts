@@ -82,6 +82,7 @@ export interface CopywritingSchema {
         titleHtml: string;
         subTitle: string;
         primaryBtn: string;
+        primaryBtnSub?: string;
         primaryBtnURL: string;
       };
       agitation: {

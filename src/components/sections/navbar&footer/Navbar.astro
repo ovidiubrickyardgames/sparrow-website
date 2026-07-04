@@ -145,6 +145,43 @@ const homeUrl = "/";
   // Initial setup
   initNavbar();
 
+  // Custom smooth scroll for anchor links with guaranteed offset
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      // Remove any existing listeners by cloning (if needed, but simple addEventListener is fine since astro:page-load runs multiple times)
+      // Actually, to prevent duplicate listeners on page transitions:
+      anchor.removeEventListener('click', handleAnchorClick);
+      anchor.addEventListener('click', handleAnchorClick);
+    });
+  }
+
+  function handleAnchorClick(this: HTMLAnchorElement, e: Event) {
+    const hash = this.getAttribute('href');
+    if (!hash || hash === '#') return;
+    
+    const targetEl = document.querySelector(hash);
+    if (targetEl) {
+      e.preventDefault();
+      // 90px offset ensures it clears the navbar (approx 75px) with a small breathing room
+      const headerOffset = 90; 
+      const elementPosition = targetEl.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      
+      // Update URL hash without jumping
+      history.pushState(null, '', hash);
+    }
+  }
+
+  initSmoothScroll();
+
   // Re-run setup on page transitions
-  document.addEventListener("astro:page-load", initNavbar);
+  document.addEventListener("astro:page-load", () => {
+    initNavbar();
+    initSmoothScroll();
+  });
 </script>
