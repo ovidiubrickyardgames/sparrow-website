@@ -32,15 +32,17 @@ export const initRevealAnimations = () => {
       gsap.to(children, {
         scrollTrigger: {
           trigger: element,
-          start: 'top 95%', // Trigger slightly earlier
-          toggleActions: 'play reverse play reverse',
+          start: 'top 85%', // Trigger when well into view
+          toggleActions: 'play none none reverse', // Premium: play once, only reverse when fully scrolled back up
         },
         opacity: 1,
         y: 0,
-        duration: 0.6, // Faster duration
-        stagger: 0.1, // Faster stagger
-        ease: 'power3.out',
-        delay: isHeroGrid ? 0.1 : 0, // Less delay
+        scale: 1,
+        filter: 'blur(0px)',
+        duration: 1.0, // Balanced duration
+        stagger: 0.15, // Balanced stagger
+        ease: 'expo.out', // Premium easing
+        delay: isHeroGrid ? 0.1 : 0,
       });
     }
   });
@@ -59,27 +61,22 @@ export const initRevealAnimations = () => {
   }));
 
   elementData.forEach(({ element, top, tagName }) => {
-    const isHeading =
-      tagName.match(/^H[1-6]$/) || element.classList.contains('reveal-heading');
     const isHeroElement = top < viewportHeight;
 
     const config = {
       scrollTrigger: {
         trigger: element,
-        start: 'top 98%', // Trigger slightly earlier
-        toggleActions: 'play reverse play reverse',
+        start: 'top 85%', // Trigger when well into view
+        toggleActions: 'play none none reverse',
       },
       opacity: 1,
-      duration: 0.7, // Faster duration
-      ease: 'power4.out',
-      delay: isHeroElement ? 0.1 : 0, // Less delay
+      y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: 1.0, // Balanced duration
+      ease: 'expo.out', // Premium easing
+      delay: isHeroElement ? 0.1 : 0,
     };
-
-    if (isHeading) {
-      config.x = 0;
-    } else {
-      config.y = 0;
-    }
 
     gsap.to(element, config);
   });
