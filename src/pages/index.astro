@@ -77,17 +77,33 @@ const metaDescription =
       </div>
     </div>
 
-    {/* Section 2: Agitation */}
-    <section
-      id="approach"
-      class="relative z-10 border-y border-zinc-200 bg-zinc-50/50 py-24 backdrop-blur-sm lg:py-32"
-    >
-      <div
-        class="pointer-events-none absolute top-1/2 left-1/2 h-[250px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-accent-1/5 blur-[120px]"
-      >
+    {/* Body content wrapper for continuous background line */}
+    <div class="relative w-full">
+      {/* Thick, Curved Organic Background Line starting exactly at Section 2 */}
+      <div class="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+        <svg 
+          class="absolute inset-0 w-full h-full text-[#f2f2ef]" 
+          viewBox="0 0 1000 1000" 
+          preserveAspectRatio="none" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path 
+            d="M200,0 C600,150 900,300 500,500 C100,700 400,850 800,1000" 
+            stroke="currentColor" 
+            stroke-width="80" 
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
       </div>
 
-      <div class="content-container relative z-10">
+      {/* Section 2: Agitation */}
+    <section id="approach" class="relative py-24 lg:py-32">
+      <div class="pointer-events-none absolute inset-0 z-0 border-y border-zinc-200 bg-zinc-50/50 backdrop-blur-sm"></div>
+      <div class="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[250px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-accent-1/5 blur-[120px]"></div>
+
+      <div class="content-container relative z-20">
         <div class="mx-auto max-w-4xl">
           <div class="reveal-element mb-8 flex justify-center">
             <div
@@ -137,10 +153,9 @@ const metaDescription =
     </section>
 
     {/* Section 3: Solution (Hybrid Model) */}
-    <section
-      class="relative z-10 bg-transparent py-20 lg:py-28 border-b border-zinc-200"
-    >
-      <div class="content-container">
+    <section class="relative py-20 lg:py-28">
+      <div class="pointer-events-none absolute inset-0 z-0 bg-transparent border-b border-zinc-200"></div>
+      <div class="content-container relative z-20">
         <div class="mx-auto mb-16 max-w-3xl text-center">
           <h2
             class="reveal-heading font-display mb-6 text-3xl font-bold tracking-tight text-zinc-950 sm:text-5xl"
@@ -171,11 +186,9 @@ const metaDescription =
     </section>
 
     {/* Section 4: Process */}
-    <section
-      id="capabilities"
-      class="relative z-10 py-24 lg:py-36 bg-zinc-50/50"
-    >
-      <div class="content-container">
+    <section id="capabilities" class="relative py-24 lg:py-36">
+      <div class="pointer-events-none absolute inset-0 z-0 bg-zinc-50/50"></div>
+      <div class="content-container relative z-20">
         <div class="mx-auto mb-10 max-w-3xl text-center">
           <h2
             class="reveal-heading font-display mb-6 text-3xl font-bold tracking-tight text-zinc-950 sm:text-5xl"
@@ -202,10 +215,9 @@ const metaDescription =
     </section>
 
     {/* Section 5: Analytics */}
-    <section
-      class="relative z-10 bg-transparent py-20 lg:py-28 border-b border-zinc-200"
-    >
-      <div class="content-container">
+    <section class="relative py-20 lg:py-28">
+      <div class="pointer-events-none absolute inset-0 z-0 bg-transparent border-b border-zinc-200"></div>
+      <div class="content-container relative z-20">
         <div class="mx-auto mb-16 max-w-3xl text-center">
           <h2
             class="reveal-heading font-display mb-6 text-3xl font-bold tracking-tight text-zinc-950 sm:text-5xl"
@@ -235,16 +247,11 @@ const metaDescription =
     </section>
 
     {/* Section 6: Pricing */}
-    <section
-      id="pricing"
-      class="relative z-10 border-t border-zinc-200 bg-zinc-50/50 py-24 lg:py-36"
-    >
-      <div
-        class="pointer-events-none absolute right-0 bottom-0 h-[400px] w-[400px] rounded-full bg-brand-accent-1/5 blur-[120px]"
-      >
-      </div>
+    <section id="pricing" class="relative py-24 lg:py-36">
+      <div class="pointer-events-none absolute inset-0 z-0 border-t border-zinc-200 bg-zinc-50/50"></div>
+      <div class="pointer-events-none absolute right-0 bottom-0 z-0 h-[400px] w-[400px] rounded-full bg-brand-accent-1/5 blur-[120px]"></div>
 
-      <div class="content-container relative z-10">
+      <div class="content-container relative z-20">
         <div class="mx-auto mb-20 max-w-2xl text-center">
           <h2
             class="reveal-heading font-display mb-6 text-3xl font-bold tracking-tight text-zinc-950 sm:text-5xl"
@@ -414,8 +421,9 @@ const metaDescription =
     </section>
 
     {/* Section 7: Final CTA & Contact */}
-    <section id="audit" class="relative z-10 bg-white py-24 lg:py-36">
-      <div class="content-container">
+    <section id="audit" class="relative py-24 lg:py-36">
+      <div class="pointer-events-none absolute inset-0 z-0 bg-white"></div>
+      <div class="content-container relative z-20">
         <div class="mx-auto mb-12 max-w-3xl text-center">
           <h2
             class="reveal-heading font-display mb-6 text-3xl font-bold tracking-tight text-zinc-950 sm:text-5xl"
@@ -437,6 +445,7 @@ const metaDescription =
         </div>
       </div>
     </section>
+    </div>
   </div>
 </MainLayout>
 
@@ -446,6 +455,7 @@ const metaDescription =
   .hide-contact-title p.text-pretty {
     display: none !important;
   }
+
 </style>
 
 <script>
