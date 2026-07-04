@@ -6,13 +6,11 @@ interface Props {
 }
 
 const baseClasses =
-  'flex items-center gap-x-2 text-base md:text-sm font-medium text-brand-text/70 ring-zinc-500 transition duration-300 focus-visible:ring-3 outline-hidden';
-const hoverClasses =
-  'hover:text-brand-accent-1 dark:hover:text-brand-accent-1/80';
-const darkClasses =
-  'dark:border-neutral-700 dark:text-brand-text/60 dark:ring-zinc-200 dark:focus:outline-hidden';
-const mdClasses = 'md:my-6 md:border-s md:border-neutral-300 md:ps-6';
-const txtSizeClasses = '2xl:text-base';
+  'group inline-flex items-center justify-center gap-x-[8px] rounded-[8px] px-[24px] py-[12px] text-[14px] font-medium transition-colors duration-150 ease-out outline-hidden active:scale-[0.98] border border-[#0f0f0f] bg-transparent text-[#0f0f0f]';
+const hoverClasses = 'hover:bg-[#0f0f0f] hover:text-white';
+const darkClasses = '';
+const mdClasses = 'md:my-6';
+const txtSizeClasses = '';
 const userSVG = `<svg
       class="h-4 w-4 shrink-0"
       width="24"

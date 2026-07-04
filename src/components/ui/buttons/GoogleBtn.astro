@@ -6,12 +6,11 @@ interface Props {
 }
 
 const baseClasses =
-  'inline-flex w-full items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-sm dark:text-brand-text/60 font-medium text-brand-text/70 shadow-xs transition duration-300 focus-visible:ring-3 outline-hidden';
-const borderClasses = 'border border-neutral-200 dark:border-neutral-700';
-const bgColorClasses =
-  'bg-neutral-50 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-900';
+  'group inline-flex w-full items-center justify-center gap-x-[8px] rounded-[8px] px-[24px] py-[12px] text-[14px] font-medium transition-colors duration-150 ease-out outline-hidden active:scale-[0.98]';
+const borderClasses = 'border border-[#0f0f0f]';
+const bgColorClasses = 'bg-transparent text-[#0f0f0f] hover:bg-[#0f0f0f] hover:text-white';
 const disableClasses = 'disabled:pointer-events-none disabled:opacity-50';
-const ringClasses = 'ring-zinc-500 dark:ring-zinc-200';
+const ringClasses = '';
 const googleSVG = `<svg
     class="h-auto w-4"
     width="46"

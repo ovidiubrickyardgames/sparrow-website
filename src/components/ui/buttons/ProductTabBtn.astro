@@ -11,16 +11,16 @@ interface Props {
 }
 // Define constants for styling classes
 const BUTTON_CLASS =
-  'flex w-full justify-center rounded-xl border border-brand-accent-1/20 bg-[#fafafa]/40 backdrop-blur-sm p-3 outline-hidden transition duration-300 hover:bg-brand-primary/60 hover:border-brand-accent-1/50 hover:ring-2 hover:ring-brand-accent-1/30 focus-visible:ring-3 md:p-5';
+  'group flex w-full justify-center gap-x-[8px] rounded-[8px] border px-[24px] py-[12px] text-[14px] font-medium outline-hidden transition-colors duration-150 ease-out active:scale-[0.98]';
 
-const HEADING_CLASS = 'block text-center font-bold';
-const INACTIVE_HEADING_CLASS = 'text-brand-text/60';
+const HEADING_CLASS = 'block text-center';
+const INACTIVE_HEADING_CLASS = 'text-[#0f0f0f]';
 ---
 
 {/* Tab button element */}
 <button
   type="button"
-  class={`${BUTTON_CLASS} ${first ? 'active bg-brand-primary border-brand-accent-1/60 ring-2 ring-brand-accent-1/40' : ''}`}
+  class={`${BUTTON_CLASS} ${first ? 'active bg-[#0f0f0f] text-white border-transparent hover:bg-[#2a2a2a]' : 'bg-transparent text-[#0f0f0f] border-[#0f0f0f] hover:bg-[#0f0f0f] hover:text-white'}`}
   id={id}
   data-target={dataTab}
   role="tab"

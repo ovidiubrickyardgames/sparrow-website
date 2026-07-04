@@ -10,18 +10,16 @@ interface Props {
 }
 // Define CSS classes for styling the button
 const baseClasses =
-  'group inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-sm font-bold text-neutral-50 ring-zinc-500 transition duration-300 focus-visible:ring-3 outline-hidden';
+  'group inline-flex items-center justify-center gap-x-[8px] rounded-[8px] px-[24px] py-[12px] text-[14px] font-medium transition-colors duration-150 ease-out outline-hidden active:scale-[0.98]';
 const borderClasses = 'border border-transparent';
-const bgColorClasses =
-  'bg-brand-accent-1 hover:bg-brand-accent-1/90 active:bg-brand-accent-1/90 dark:focus:outline-hidden';
+const bgColorClasses = 'bg-[#0f0f0f] text-white hover:bg-[#2a2a2a]';
 const disableClasses = 'disabled:pointer-events-none disabled:opacity-50';
-const fontSizeClasses = '2xl:text-base';
-const ringClasses = 'dark:ring-zinc-200';
+
 ---
 
 {/* Button with dynamic title, id, and optional arrow */}
 <button
-  class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${disableClasses} ${fontSizeClasses} ${ringClasses}`}
+  class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${disableClasses}`}
   id={id}
 >
   {title}
