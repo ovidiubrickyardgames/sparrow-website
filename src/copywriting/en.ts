@@ -146,14 +146,14 @@ export const en: CopywritingSchema = {
       metaDescription: 'We Build, Manage, and Close Your B2B Pipeline. Sparrow is an end-to-end outbound sales partner.',
       hero: {
         eyebrowLabel: 'DONE-FOR-YOU • PERFORMANCE-BASED',
-        titleHtml: 'We handle the sales pipeline.<br/>You just <span class="text-brand-accent-1 italic">close.</span>',
+        titleHtml: 'We handle the sales pipeline.<br/>You just <span class="underline italic">close.</span>',
         subTitle: "We find your buyers, run the outreach, and book the meetings — your closers just show up and do what they're best at.",
         primaryBtn: 'Get a free pipeline review →',
         primaryBtnSub: '15-min call · no commitment',
         primaryBtnURL: '#audit',
       },
       agitation: {
-        titleHtml: 'The B2B Sales Trap:<br/><span class="text-brand-accent-1">Paying Closers to Do Admin</span>',
+        titleHtml: 'The B2B Sales Trap:<br/><span class="font-bold">Paying Closers to Do Admin</span>',
         subTitle: 'If your outbound engine is stalling, your best people are probably doing the wrong work.',
         stats: [
           { stat: '70%', description: 'of a sales team\'s time is wasted on data entry and CRM updates.' },
@@ -163,7 +163,7 @@ export const en: CopywritingSchema = {
         conclusion: 'You don\'t need another software tool. You need a partner to run the entire top-of-funnel motion for you.'
       },
       solution: {
-        titleHtml: 'The Solution: <span class="text-brand-accent-1">The Hybrid Model</span>',
+        titleHtml: 'The Solution: <span class="font-bold">The Hybrid Model</span>',
         subTitle: 'We don\'t just hand you a list of leads and walk away. We act as your revenue team, bridging the gap between automated prospecting and human relationship building.',
         items: [
           {
@@ -199,7 +199,7 @@ export const en: CopywritingSchema = {
         ]
       },
       analytics: {
-        titleHtml: 'Track Actual <span class="text-brand-accent-1">Revenue</span>',
+        titleHtml: 'Track Actual <span class="font-bold">Revenue</span>',
         subTitle: 'We measure our success by your pipeline value, not vanity metrics like open rates.',
         items: [
           { title: 'Conversion Rates', content: 'See exactly how many prospects turn into booked meetings.' },
@@ -208,7 +208,7 @@ export const en: CopywritingSchema = {
         ]
       },
       pricing: {
-        titleHtml: 'Predictable Pipeline <span class="text-brand-accent-1">Packages</span>',
+        titleHtml: 'Predictable Pipeline <span class="font-bold">Packages</span>',
         subTitle: 'Choose the partnership level that fits your growth targets.',
         plans: {
           starter: {
@@ -252,7 +252,7 @@ export const en: CopywritingSchema = {
         }
       },
       cta: {
-        titleHtml: 'Let\'s Build Your <span class="text-brand-accent-1">Pipeline.</span>',
+        titleHtml: 'Let\'s Build Your <span class="font-bold">Pipeline.</span>',
         subTitle: 'We don\'t just deliver leads. We build predictable sales engines. Let\'s review your current outbound setup and find the gaps.',
         btnText: 'Audit Your Pipeline',
         btnURL: '#audit'
@@ -346,14 +346,24 @@ export const en: CopywritingSchema = {
       hero: {
         eyebrowLabel: 'Managed Outbound Service',
         eyebrowSuffix: 'Premium Pipeline',
-        titleHtml: `High-Volume B2B Prospecting.<br />\n              <span\n                class="text-brand-accent-1"\n              >\n                Executed with Precision.\n              </span>`,
+        titleHtml: `High-Volume B2B Prospecting.<br />
+              <span
+                class="font-bold"
+              >
+                Executed with Precision.
+              </span>`,
         subTitle:
           'Stop paying for outdated databases and building complex mailbox architectures. We run a fully managed outbound engine that handles research, deliverability, and personalization to book qualified meetings directly in your calendar.',
         primaryBtn: 'Explore the Service',
         secondaryBtn: 'View Partnership Tiers',
       },
       philosophy: {
-        titleHtml: `You bring the product.<br />\n            <span\n              class="text-brand-accent-1"\n            >\n              We provide the distribution.\n            </span>`,
+        titleHtml: `You bring the product.<br />
+            <span
+              class="font-bold"
+            >
+              We provide the distribution.
+            </span>`,
         content:
           "We don't sell \"guaranteed meetings.\" No agency can force a market to buy a product that lacks product-market fit. Instead, we provide industrial-grade distribution. We leverage our proprietary infrastructure to scale your outreach flawlessly. If your product is ready for the market, our service will find the buyers.",
       },
@@ -485,7 +495,7 @@ export const en: CopywritingSchema = {
       metaDescription:
         'Architecting Intelligent Systems: Custom software, AI agents, and spatial environments engineered to scale your business and eliminate operational bottlenecks.',
       hero: {
-        titleHtml: `Architecting <span class="text-brand-accent-1">Intelligent Systems</span>.`,
+        titleHtml: `Architecting <span class="font-bold">Intelligent Systems</span>.`,
         subTitle:
           'Custom software, AI agents, and spatial environments engineered to scale your business and eliminate operational bottlenecks.',
         primaryBtn: 'Book a Solutions Mapping Call',
@@ -493,13 +503,13 @@ export const en: CopywritingSchema = {
       },
       pillars: {
         eyebrow: 'Solution Pillars',
-        titleHtml: `Architecting <span class="text-brand-accent-1">Scalable Outcomes</span>.`,
+        titleHtml: `Architecting <span class="font-bold">Scalable Outcomes</span>.`,
         description:
           'We organize our capabilities into four core pillars. Each one bridges the gap between deep tech R&D and real business results.',
       },
       methodology: {
         eyebrow: 'Applied R&D Methodology',
-        titleHtml: `The Engineering <span class="text-brand-accent-1">Lifecycle</span>.`,
+        titleHtml: `The Engineering <span class="font-bold">Lifecycle</span>.`,
         phases: [
           {
             step: 'PHASE 01',
