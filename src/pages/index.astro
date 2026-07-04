@@ -2,6 +2,7 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import ContactSection from "@components/sections/misc/ContactSection.astro";
 import ProcessCard from "@components/ui/cards/ProcessCard.astro";
+import HeroSectionVariant from "@components/sections/landing/HeroSectionVariant.astro";
 import { useTranslations } from "@/copywriting";
 
 const copy = useTranslations();
@@ -26,52 +27,12 @@ const metaDescription =
     </div>
 
     {/* Hero Section */}
-    <div
-      class="relative z-10 flex min-h-[92vh] items-center pt-24 lg:pt-0 overflow-hidden"
-      id="hero-wrap"
-    >
-      <canvas
-        id="c"
-        class="absolute inset-0 w-full h-full pointer-events-none -z-10"
-        style="mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, transparent 35%, black 80%); -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, transparent 35%, black 80%);"
-      ></canvas>
-
-      <div
-        class="content-container relative z-10 w-full py-20 lg:py-32 flex flex-col items-center justify-center"
-      >
-        <div class="flex max-w-5xl flex-col items-center text-center">
-
-
-          <h1
-            class="reveal-heading font-display mb-6 text-5xl leading-[1.08] font-bold tracking-[-0.02em] text-zinc-950 sm:text-7xl text-center"
-          >
-            <Fragment set:html={pageCopy.hero.titleHtml} />
-          </h1>
-
-          <p
-            class="reveal-element mx-auto mb-10 max-w-[520px] text-center text-lg leading-relaxed font-light text-[#444444] sm:text-xl"
-          >
-            {pageCopy.hero.subTitle}
-          </p>
-
-          <div class="reveal-element flex flex-col items-center justify-center gap-3">
-            <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row justify-center">
-              <a
-                href={pageCopy.hero.primaryBtnURL}
-                class="group inline-flex items-center justify-center gap-x-2 rounded-[6px] px-5 py-3 text-sm font-medium ring-zinc-500 transition duration-300 focus-visible:ring-3 outline-hidden bg-[#0f0f0f] hover:bg-[#1a1a1a] active:bg-black text-white 2xl:text-base"
-              >
-                {pageCopy.hero.primaryBtn}
-              </a>
-            </div>
-            {pageCopy.hero.primaryBtnSub && (
-              <p class="text-[13px] font-medium text-zinc-500/80">
-                {pageCopy.hero.primaryBtnSub}
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+    <HeroSectionVariant 
+      title={pageCopy.hero.titleHtml}
+      subTitle={pageCopy.hero.subTitle}
+      primaryBtn={pageCopy.hero.primaryBtn}
+      primaryBtnURL={pageCopy.hero.primaryBtnURL}
+    />
 
     {/* Body content wrapper for continuous background line */}
     <div class="relative w-full">
@@ -454,151 +415,3 @@ const metaDescription =
 
 </style>
 
-<script>
-  function initHeroCanvas() {
-    const canvas = document.getElementById("c") as HTMLCanvasElement | null;
-    const ctx = canvas?.getContext("2d");
-    const wrap = document.getElementById("hero-wrap");
-
-    if (!canvas || !ctx || !wrap) return;
-
-    if ((canvas as any)._isAnimating) return;
-    (canvas as any)._isAnimating = true;
-
-    let W: number = 0, H: number = 0;
-    let t = 0;
-    let animationFrameId: number;
-
-    function resize() {
-      if (!wrap || !canvas || !ctx) return;
-      W = wrap.offsetWidth;
-      H = wrap.offsetHeight;
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = W * dpr;
-      canvas.height = H * dpr;
-      ctx.scale(dpr, dpr);
-    }
-    
-    const ro = new ResizeObserver(() => resize());
-    ro.observe(wrap);
-    resize();
-
-    function noise(x: number, y: number, t: number) {
-      const v1 =
-        Math.sin(x * 0.008 + t * 0.18) * Math.cos(y * 0.009 - t * 0.12);
-      const v2 = Math.sin(x * 0.014 - y * 0.007 + t * 0.09);
-      const v3 = Math.cos(x * 0.006 + y * 0.011 - t * 0.15) * 0.5;
-      const v4 = Math.sin((x + y) * 0.005 + t * 0.07) * 0.3;
-      return (v1 + v2 + v3 + v4) / 2.3;
-    }
-
-    function getIsoLines(levels: number[]) {
-      const step = 6;
-      const cols = Math.ceil(W / step) + 1;
-      const rows = Math.ceil(H / step) + 1;
-
-      const grid: number[][] = [];
-      for (let r = 0; r < rows; r++) {
-        grid[r] = [];
-        for (let c = 0; c < cols; c++) {
-          grid[r][c] = noise(c * step, r * step, t);
-        }
-      }
-
-      const lines: Record<number, number[][][]> = {};
-      levels.forEach((lv) => (lines[lv] = []));
-
-      for (let r = 0; r < rows - 1; r++) {
-        for (let c = 0; c < cols - 1; c++) {
-          const x0 = c * step,
-            y0 = r * step;
-          const tl = grid[r][c],
-            tr = grid[r][c + 1];
-          const bl = grid[r + 1][c],
-            br = grid[r + 1][c + 1];
-
-          levels.forEach((lv) => {
-            const pts: number[][] = [];
-
-            function interp(
-              ax: number,
-              ay: number,
-              av: number,
-              bx: number,
-              by: number,
-              bv: number,
-            ) {
-              if (av < lv === bv < lv) return;
-              const s = (lv - av) / (bv - av);
-              pts.push([ax + (bx - ax) * s, ay + (by - ay) * s]);
-            }
-
-            interp(x0, y0, tl, x0 + step, y0, tr);
-            interp(x0 + step, y0, tr, x0 + step, y0 + step, br);
-            interp(x0, y0 + step, bl, x0 + step, y0 + step, br);
-            interp(x0, y0, tl, x0, y0 + step, bl);
-
-            if (pts.length === 2) {
-              lines[lv].push(pts);
-            }
-          });
-        }
-      }
-
-      return lines;
-    }
-
-    function draw() {
-      t += 0.012;
-      ctx!.clearRect(0, 0, W, H);
-
-      const levelCount = 22;
-      const levels: number[] = [];
-      for (let i = 0; i < levelCount; i++) {
-        levels.push(-1.05 + (i / (levelCount - 1)) * 2.1);
-      }
-
-      const isoLines = getIsoLines(levels);
-
-      levels.forEach((lv, idx) => {
-        const segs = isoLines[lv];
-        if (!segs || !segs.length) return;
-
-        const t_norm = idx / (levelCount - 1);
-        const isMid = t_norm > 0.3 && t_norm < 0.7;
-
-        const baseAlpha = isMid ? 0.10 : 0.06;
-        const blueBlend = isMid ? 0.4 : 0.1;
-
-        const r = 0;
-        const g = 0;
-        const b = 0;
-
-        ctx!.strokeStyle = `rgba(${r},${g},${b},${baseAlpha})`;
-        ctx!.lineWidth = isMid ? 1.2 : 0.8;
-        ctx!.lineCap = "round";
-        ctx!.lineJoin = "round";
-
-        segs.forEach(([p1, p2]) => {
-          ctx!.beginPath();
-          ctx!.moveTo(p1[0], p1[1]);
-          ctx!.lineTo(p2[0], p2[1]);
-          ctx!.stroke();
-        });
-      });
-
-      animationFrameId = requestAnimationFrame(draw);
-    }
-
-    draw();
-
-    document.addEventListener('astro:before-swap', () => {
-      cancelAnimationFrame(animationFrameId);
-      ro.disconnect();
-      if (canvas) (canvas as any)._isAnimating = false;
-    }, { once: true });
-  }
-
-  document.addEventListener('astro:page-load', initHeroCanvas);
-  initHeroCanvas();
-</script>
