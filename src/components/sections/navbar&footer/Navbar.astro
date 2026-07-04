@@ -85,8 +85,10 @@ const homeUrl = "/";
             if (link.url === "#audit") {
               return (
                 <a
+                  id="nav-cta-button"
                   href={link.url}
-                  class="ml-4 group inline-flex items-center justify-center gap-x-[8px] rounded-[8px] bg-[#0f0f0f] px-[24px] py-[12px] text-[14px] font-medium text-white transition-colors duration-150 ease-out outline-hidden hover:bg-[#2a2a2a] active:scale-[0.98]"
+                  data-visible="false"
+                  class="nav-cta-btn group inline-flex items-center justify-center gap-x-[8px] rounded-[8px] bg-[#0f0f0f] py-[12px] text-[14px] font-medium text-white outline-hidden hover:bg-[#2a2a2a] active:scale-[0.98] whitespace-nowrap overflow-hidden opacity-0 scale-95 pointer-events-none data-[visible=true]:opacity-100 data-[visible=true]:scale-100 data-[visible=true]:pointer-events-auto"
                 >
                   {link.name}
                 </a>
@@ -110,7 +112,9 @@ const homeUrl = "/";
 
   function initNavbar() {
     const nav = document.getElementById("main-nav");
-    const sentinel = document.getElementById("nav-sentinel");
+    // Observe hero-buttons-container if it exists, else fallback to hero-wrap or nav-sentinel
+    const sentinel = document.getElementById("hero-buttons-container") || document.getElementById("hero-wrap") || document.getElementById("nav-sentinel");
+    const ctaBtn = document.getElementById("nav-cta-button");
 
     if (nav && sentinel) {
       // Disconnect existing observer if it exists (relevant for persisted components)
@@ -122,18 +126,24 @@ const homeUrl = "/";
         (entries) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) {
-              // Scrolled down
+              // Scrolled down past the sentinel
               nav.classList.add("md:max-w-6xl");
               nav.classList.remove("md:max-w-4xl");
+              if (ctaBtn) {
+                ctaBtn.dataset.visible = "true";
+              }
             } else {
-              // At the top
+              // At the top / hero is visible
               nav.classList.remove("md:max-w-6xl");
               nav.classList.add("md:max-w-4xl");
+              if (ctaBtn) {
+                ctaBtn.dataset.visible = "false";
+              }
             }
           });
         },
         {
-          rootMargin: "10px 0px 0px 0px",
+          rootMargin: "0px",
           threshold: 0,
         },
       );
@@ -185,3 +195,24 @@ const homeUrl = "/";
     initSmoothScroll();
   });
 </script>
+
+<style>
+  .nav-cta-btn {
+    max-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    transition: max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.4s ease,
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                margin 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.15s ease;
+  }
+  .nav-cta-btn[data-visible="true"] {
+    max-width: 250px;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-left: 16px;
+  }
+</style>

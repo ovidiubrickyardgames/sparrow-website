@@ -32,7 +32,7 @@ export const initRevealAnimations = () => {
       gsap.to(children, {
         scrollTrigger: {
           trigger: element,
-          start: 'top 85%', // Trigger when well into view
+          start: 'top 95%', // Trigger when entering view
           toggleActions: 'play none none reverse', // Premium: play once, only reverse when fully scrolled back up
         },
         opacity: 1,
@@ -66,7 +66,7 @@ export const initRevealAnimations = () => {
     const config = {
       scrollTrigger: {
         trigger: element,
-        start: 'top 85%', // Trigger when well into view
+        start: 'top 95%', // Trigger when entering view
         toggleActions: 'play none none reverse',
       },
       opacity: 1,
