@@ -1,0 +1,25 @@
+---
+interface Props {
+  index?: number;
+  title: string;
+  content: string;
+}
+
+const { index, title, content } = Astro.props;
+---
+
+<div class="premium-card flex flex-col p-8 h-full">
+  {
+    index !== undefined && (
+      <div class="mb-6 text-[36px] font-[300] leading-none text-[#c8c8c8]">
+        {index < 10 ? `0${index}` : index}
+      </div>
+    )
+  }
+  <h3 class="font-sans mb-4 text-2xl font-[500] text-[#0f0f0f]">
+    {title}
+  </h3>
+  <p class="text-base leading-relaxed text-[#555555]">
+    {content}
+  </p>
+</div>

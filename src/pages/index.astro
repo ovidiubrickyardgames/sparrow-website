@@ -1,6 +1,7 @@
 ---
 import MainLayout from "@/layouts/MainLayout.astro";
 import ContactSection from "@components/sections/misc/ContactSection.astro";
+import ProcessCard from "@components/ui/cards/ProcessCard.astro";
 import { useTranslations } from "@/copywriting";
 
 const copy = useTranslations();
@@ -79,7 +80,7 @@ const metaDescription =
     {/* Section 2: Agitation */}
     <section
       id="approach"
-      class="relative z-10 scroll-mt-64 border-y border-zinc-200 bg-zinc-50/50 py-24 backdrop-blur-sm lg:py-32"
+      class="relative z-10 border-y border-zinc-200 bg-zinc-50/50 py-24 backdrop-blur-sm lg:py-32"
     >
       <div
         class="pointer-events-none absolute top-1/2 left-1/2 h-[250px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-accent-1/5 blur-[120px]"
@@ -116,11 +117,11 @@ const metaDescription =
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {
               pageCopy.agitation.stats.map((stat) => (
-                <div class="premium-card p-6 text-center">
-                  <div class="text-4xl font-bold text-brand-accent-1 mb-2">
+                <div class="premium-card flex flex-col justify-center p-8 text-center h-full">
+                  <div class="mb-4 text-[36px] font-[300] leading-none text-brand-accent-1">
                     {stat.stat}
                   </div>
-                  <p class="text-zinc-600 font-medium">{stat.description}</p>
+                  <p class="text-base leading-relaxed text-[#555555]">{stat.description}</p>
                 </div>
               ))
             }
@@ -158,14 +159,11 @@ const metaDescription =
         >
           {
             pageCopy.solution.items.map((item, idx) => (
-              <div class="premium-card group p-8">
-                <h3 class="font-display mb-4 text-xl font-bold text-zinc-900 group-hover:text-brand-accent-1 transition-colors duration-300">
-                  {item.title}
-                </h3>
-                <p class="text-base leading-relaxed text-zinc-600">
-                  {item.content}
-                </p>
-              </div>
+              <ProcessCard
+                index={idx + 1}
+                title={item.title.replace(/^\d+\.\s*/, '')}
+                content={item.content}
+              />
             ))
           }
         </div>
@@ -175,7 +173,7 @@ const metaDescription =
     {/* Section 4: Process */}
     <section
       id="capabilities"
-      class="relative z-10 scroll-mt-64 py-24 lg:py-36 bg-zinc-50/50"
+      class="relative z-10 py-24 lg:py-36 bg-zinc-50/50"
     >
       <div class="content-container">
         <div class="mx-auto mb-10 max-w-3xl text-center">
@@ -192,17 +190,11 @@ const metaDescription =
         <div class="reveal-grid relative grid grid-cols-1 gap-8 md:grid-cols-3">
           {
             pageCopy.process.phases.map((phase, idx) => (
-              <div class="premium-card p-8">
-                <div class="mb-6 text-[36px] font-[300] leading-none text-[#c8c8c8]">
-                  0{idx + 1}
-                </div>
-                <h3 class="font-sans mb-4 text-2xl font-[500] text-[#0f0f0f]">
-                  {phase.title}
-                </h3>
-                <p class="text-base leading-relaxed text-[#555555]">
-                  {phase.content}
-                </p>
-              </div>
+              <ProcessCard
+                index={idx + 1}
+                title={phase.title}
+                content={phase.content}
+              />
             ))
           }
         </div>
@@ -232,14 +224,10 @@ const metaDescription =
         >
           {
             pageCopy.analytics.items.map((item, idx) => (
-              <div class="premium-card group p-8 text-center">
-                <h3 class="font-display mb-4 text-xl font-bold text-zinc-900 group-hover:text-brand-accent-1 transition-colors duration-300">
-                  {item.title}
-                </h3>
-                <p class="text-base leading-relaxed text-zinc-600">
-                  {item.content}
-                </p>
-              </div>
+              <ProcessCard
+                title={item.title}
+                content={item.content}
+              />
             ))
           }
         </div>
@@ -249,7 +237,7 @@ const metaDescription =
     {/* Section 6: Pricing */}
     <section
       id="pricing"
-      class="relative z-10 scroll-mt-64 border-t border-zinc-200 bg-zinc-50/50 py-24 lg:py-36"
+      class="relative z-10 border-t border-zinc-200 bg-zinc-50/50 py-24 lg:py-36"
     >
       <div
         class="pointer-events-none absolute right-0 bottom-0 h-[400px] w-[400px] rounded-full bg-brand-accent-1/5 blur-[120px]"
@@ -274,12 +262,12 @@ const metaDescription =
           class="reveal-grid mx-auto grid max-w-6xl grid-cols-1 items-stretch gap-8 lg:grid-cols-3"
         >
           {/* Starter */}
-          <div class="premium-card flex flex-col p-8">
+          <div class="premium-card flex flex-col p-8 h-full">
             <div class="mb-6">
-              <h3 class="font-display text-2xl font-bold text-zinc-900">
+              <h3 class="font-sans mb-4 text-2xl font-[500] text-[#0f0f0f]">
                 {pageCopy.pricing.plans.starter.title}
               </h3>
-              <p class="mt-2 text-sm text-zinc-600 h-10">
+              <p class="text-base leading-relaxed text-[#555555] h-14">
                 {pageCopy.pricing.plans.starter.description}
               </p>
             </div>
@@ -329,10 +317,10 @@ const metaDescription =
             </div>
             <div>
               <div class="mb-8">
-                <h3 class="font-display mb-2 text-2xl font-bold text-zinc-900">
+                <h3 class="font-sans mb-4 text-2xl font-[500] text-[#0f0f0f]">
                   {pageCopy.pricing.plans.growth.title}
                 </h3>
-                <p class="text-sm text-zinc-500 mb-4 h-10">
+                <p class="text-base leading-relaxed text-[#555555] mb-4 h-14">
                   {pageCopy.pricing.plans.growth.description}
                 </p>
                 <div class="text-3xl font-bold text-brand-accent-1">
@@ -372,12 +360,12 @@ const metaDescription =
           </div>
 
           {/* Scale */}
-          <div class="premium-card flex flex-col p-8">
+          <div class="premium-card flex flex-col p-8 h-full">
             <div class="mb-6">
-              <h3 class="font-display text-2xl font-bold text-zinc-900">
+              <h3 class="font-sans mb-4 text-2xl font-[500] text-[#0f0f0f]">
                 {pageCopy.pricing.plans.scale.title}
               </h3>
-              <p class="mt-2 text-sm text-zinc-600 h-10">
+              <p class="text-base leading-relaxed text-[#555555] h-14">
                 {pageCopy.pricing.plans.scale.description}
               </p>
             </div>
@@ -426,7 +414,7 @@ const metaDescription =
     </section>
 
     {/* Section 7: Final CTA & Contact */}
-    <section id="audit" class="relative z-10 scroll-mt-64 bg-white py-24 lg:py-36">
+    <section id="audit" class="relative z-10 bg-white py-24 lg:py-36">
       <div class="content-container">
         <div class="mx-auto mb-12 max-w-3xl text-center">
           <h2
