@@ -328,12 +328,14 @@ interface Props {
   /* Animations for dashboard visual */
   .dashboard-window {
     animation: float 10s ease-in-out infinite;
+    will-change: transform;
   }
 
   .chart-bar {
     animation: growBar 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     transform-origin: bottom;
     transform: scaleY(0);
+    will-change: transform, opacity;
   }
 
   .chart-bar:nth-child(2) { animation-delay: 0.05s; }
@@ -351,11 +353,13 @@ interface Props {
 
   .floating-card-1 {
     animation: floatCard1 8s ease-in-out infinite;
+    will-change: transform;
   }
 
   .floating-card-2 {
     animation: floatCard2 9s ease-in-out infinite;
     animation-delay: 1.5s;
+    will-change: transform;
   }
 
   @keyframes float {
@@ -441,7 +445,7 @@ interface Props {
     }
 
     function getIsoLines(levels: number[]) {
-      const step = 6;
+      const step = 14;
       const cols = Math.ceil(W / step) + 1;
       const rows = Math.ceil(H / step) + 1;
 

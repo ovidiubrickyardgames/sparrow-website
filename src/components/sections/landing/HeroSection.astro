@@ -198,6 +198,7 @@ interface Props {
   .deal-card {
     animation: moveDeal 7s infinite ease-in-out;
     opacity: 0;
+    will-change: transform, opacity;
   }
   .card-1 {
     animation-delay: 0s;
@@ -304,7 +305,7 @@ interface Props {
     }
 
     function getIsoLines(levels: number[]) {
-      const step = 6;
+      const step = 14;
       const cols = Math.ceil(W / step) + 1;
       const rows = Math.ceil(H / step) + 1;
 
