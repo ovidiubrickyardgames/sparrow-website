@@ -77,28 +77,42 @@ const homeUrl = "/";
     >
       {/* Navigation links container */}
       <div
-        class="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-4 md:gap-y-0 md:ps-7 lg:gap-x-7"
+        class="mt-5 flex flex-col md:mt-0 md:flex-row md:items-center md:justify-end md:ps-7"
       >
-        {/* Navigation links and Authentication component */}
+        <div class="flex flex-col gap-y-4 md:flex-row md:items-center md:gap-x-4 md:gap-y-0 lg:gap-x-7">
+          {
+            strings.navBarLinks.map((link) => {
+              if (link.url !== "#audit") {
+                return <NavLink url={link.url} name={link.name} />;
+              }
+            })
+          }
+        </div>
+
         {
           strings.navBarLinks.map((link) => {
             if (link.url === "#audit") {
               return (
-                <a
-                  id="nav-cta-button"
-                  href={link.url}
+                <div
+                  id="nav-cta-wrapper"
+                  class="mt-4 grid grid-cols-[0fr] items-center opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:mt-0 data-[visible=true]:grid-cols-[1fr] data-[visible=true]:opacity-100 md:data-[visible=true]:ml-4 lg:data-[visible=true]:ml-7 pointer-events-none data-[visible=true]:pointer-events-auto"
                   data-visible="false"
-                  class="nav-cta-btn group inline-flex items-center justify-center gap-x-[8px] rounded-[8px] bg-[#0f0f0f] py-[12px] text-[14px] font-medium text-white outline-hidden hover:bg-[#2a2a2a] active:scale-[0.98] whitespace-nowrap overflow-hidden opacity-0 scale-95 pointer-events-none data-[visible=true]:opacity-100 data-[visible=true]:scale-100 data-[visible=true]:pointer-events-auto"
                 >
-                  {link.name}
-                </a>
+                  <div class="overflow-hidden">
+                    <a
+                      id="nav-cta-button"
+                      href={link.url}
+                      class="group inline-flex w-full items-center justify-center gap-x-[8px] rounded-[8px] bg-[#0f0f0f] px-[24px] py-[12px] text-[14px] font-medium text-white outline-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#2a2a2a] active:scale-[0.98] whitespace-nowrap md:w-auto scale-95 opacity-0 data-[visible=true]:scale-100 data-[visible=true]:opacity-100"
+                      data-visible="false"
+                    >
+                      {link.name}
+                    </a>
+                  </div>
+                </div>
               );
             }
-            return <NavLink url={link.url} name={link.name} />;
           })
         }
-
-        <!--<Authentication />-->
       </div>
     </div>
   </nav>
@@ -112,12 +126,11 @@ const homeUrl = "/";
 
   function initNavbar() {
     const nav = document.getElementById("main-nav");
-    // Observe hero-buttons-container if it exists, else fallback to hero-wrap or nav-sentinel
     const sentinel = document.getElementById("hero-buttons-container") || document.getElementById("hero-wrap") || document.getElementById("nav-sentinel");
+    const ctaWrapper = document.getElementById("nav-cta-wrapper");
     const ctaBtn = document.getElementById("nav-cta-button");
 
     if (nav && sentinel) {
-      // Disconnect existing observer if it exists (relevant for persisted components)
       if (navbarObserver) {
         navbarObserver.disconnect();
       }
@@ -126,19 +139,17 @@ const homeUrl = "/";
         (entries) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) {
-              // Scrolled down past the sentinel
+              // Scrolled down
               nav.classList.add("md:max-w-6xl");
               nav.classList.remove("md:max-w-4xl");
-              if (ctaBtn) {
-                ctaBtn.dataset.visible = "true";
-              }
+              if (ctaWrapper) ctaWrapper.dataset.visible = "true";
+              if (ctaBtn) ctaBtn.dataset.visible = "true";
             } else {
-              // At the top / hero is visible
+              // At the top
               nav.classList.remove("md:max-w-6xl");
               nav.classList.add("md:max-w-4xl");
-              if (ctaBtn) {
-                ctaBtn.dataset.visible = "false";
-              }
+              if (ctaWrapper) ctaWrapper.dataset.visible = "false";
+              if (ctaBtn) ctaBtn.dataset.visible = "false";
             }
           });
         },
@@ -155,11 +166,9 @@ const homeUrl = "/";
   // Initial setup
   initNavbar();
 
-  // Custom smooth scroll for anchor links with guaranteed offset
+  // Custom smooth scroll
   function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      // Remove any existing listeners by cloning (if needed, but simple addEventListener is fine since astro:page-load runs multiple times)
-      // Actually, to prevent duplicate listeners on page transitions:
       anchor.removeEventListener("click", handleAnchorClick);
       anchor.addEventListener("click", handleAnchorClick);
     });
@@ -172,7 +181,6 @@ const homeUrl = "/";
     const targetEl = document.querySelector(hash);
     if (targetEl) {
       e.preventDefault();
-      // 90px offset ensures it clears the navbar (approx 75px) with a small breathing room
       const headerOffset = 0;
       const elementPosition = targetEl.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - headerOffset;
@@ -182,37 +190,15 @@ const homeUrl = "/";
         behavior: "smooth",
       });
 
-      // Update URL hash without jumping
       history.pushState(null, "", hash);
     }
   }
 
   initSmoothScroll();
 
-  // Re-run setup on page transitions
   document.addEventListener("astro:page-load", () => {
     initNavbar();
     initSmoothScroll();
   });
 </script>
 
-<style>
-  .nav-cta-btn {
-    max-width: 0;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    transition: max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.4s ease,
-                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                padding 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                margin 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                background-color 0.15s ease;
-  }
-  .nav-cta-btn[data-visible="true"] {
-    max-width: 250px;
-    padding-left: 24px;
-    padding-right: 24px;
-    margin-left: 16px;
-  }
-</style>
