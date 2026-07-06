@@ -674,8 +674,8 @@ interface Props {
       linesEl.appendChild(l);
     });
 
-    const strokes   = Array.from(document.querySelectorAll('.stroke'));
-    const penG      = document.getElementById('penG');
+    const strokes   = Array.from(document.querySelectorAll('.stroke')) as SVGPathElement[];
+    const penG      = document.getElementById('penG') as SVGGElement | null;
     if (!penG || !strokes.length) return;
     
     const durations = [540, 380, 480, 480, 320, 160, 160, 160, 280, 420];
@@ -684,50 +684,50 @@ interface Props {
     const PAUSE     = 2200;
     const FLY_DUR   = 520;
 
-    function easeInOut(t){ return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+    function easeInOut(t: number){ return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
     function runCycle(){
       if (!document.getElementById('contractLines')) return;
       
       strokes.forEach(function(p){
         var len = p.getTotalLength();
-        p.setAttribute('stroke-dasharray', len);
-        p.setAttribute('stroke-dashoffset', len);
+        p.setAttribute('stroke-dasharray', String(len));
+        p.setAttribute('stroke-dashoffset', String(len));
         p.style.opacity = '1';
         p.style.transition = 'none';
       });
-      penG.setAttribute('opacity','0');
+      penG!.setAttribute('opacity','0');
 
       var firstPt = strokes[0].getPointAtLength(0);
       var flyT0   = performance.now() + 850;
 
-      function flyFrame(now){
+      function flyFrame(now: number){
         if (!document.getElementById('contractLines')) return;
         var t = Math.min((now - flyT0) / FLY_DUR, 1);
         if(t <= 0){ requestAnimationFrame(flyFrame); return; }
         var e = easeInOut(t);
-        penG.setAttribute('transform','translate('+(220+(firstPt.x-220)*e)+','+((-52)+(firstPt.y+52)*e)+')');
-        penG.setAttribute('opacity', String(Math.min(t*3,1)));
+        penG!.setAttribute('transform','translate('+(220+(firstPt.x-220)*e)+','+((-52)+(firstPt.y+52)*e)+')');
+        penG!.setAttribute('opacity', String(Math.min(t*3,1)));
         if(t < 1) requestAnimationFrame(flyFrame);
         else      writeStroke(0);
       }
       requestAnimationFrame(flyFrame);
 
-      function writeStroke(idx){
+      function writeStroke(idx: number){
         if (!document.getElementById('contractLines')) return;
         if(idx >= strokes.length){ setTimeout(liftAndEnd, HOLD); return; }
         var path  = strokes[idx];
         var total = path.getTotalLength();
         var dur   = durations[idx] || 300;
         var t0    = performance.now();
-        function frame(now){
+        function frame(now: number){
           if (!document.getElementById('contractLines')) return;
           var raw  = Math.min((now - t0) / dur, 1);
           var ease = easeInOut(raw);
           var drawn = ease * total;
-          path.setAttribute('stroke-dashoffset', total - drawn);
+          path.setAttribute('stroke-dashoffset', String(total - drawn));
           var pt = path.getPointAtLength(drawn);
-          penG.setAttribute('transform','translate('+pt.x+','+pt.y+')');
+          penG!.setAttribute('transform','translate('+pt.x+','+pt.y+')');
           if(raw < 1) requestAnimationFrame(frame);
           else {
             if(idx + 1 < strokes.length)
@@ -739,15 +739,15 @@ interface Props {
         requestAnimationFrame(frame);
       }
 
-      function liftToNext(from, to, cb){
+      function liftToNext(from: {x: number, y: number}, to: {x: number, y: number}, cb: () => void){
         var t0 = performance.now();
-        function frame(now){
+        function frame(now: number){
           if (!document.getElementById('contractLines')) return;
           var t = Math.min((now - t0) / LIFT_DUR, 1);
           var e = easeInOut(t);
           var mx = from.x + (to.x - from.x) * e;
           var my = from.y + (to.y - from.y) * e - Math.sin(e * Math.PI) * 10;
-          penG.setAttribute('transform','translate('+mx+','+my+')');
+          penG!.setAttribute('transform','translate('+mx+','+my+')');
           if(t < 1) requestAnimationFrame(frame); else cb();
         }
         requestAnimationFrame(frame);
@@ -758,15 +758,15 @@ interface Props {
         var lastPt = last.getPointAtLength(last.getTotalLength());
         var t0     = performance.now();
         var LDUR   = 420;
-        function frame(now){
+        function frame(now: number){
           if (!document.getElementById('contractLines')) return;
           var t = Math.min((now - t0) / LDUR, 1);
           var e = easeInOut(t);
-          penG.setAttribute('transform','translate('+(lastPt.x+e*44)+','+(lastPt.y-e*46)+')');
-          penG.setAttribute('opacity', String(1 - e));
+          penG!.setAttribute('transform','translate('+(lastPt.x+e*44)+','+(lastPt.y-e*46)+')');
+          penG!.setAttribute('opacity', String(1 - e));
           if(t < 1) requestAnimationFrame(frame);
           else {
-            penG.setAttribute('opacity','0');
+            penG!.setAttribute('opacity','0');
             setTimeout(function(){
               if (!document.getElementById('contractLines')) return;
               strokes.forEach(function(p){ p.style.transition='opacity 0.35s'; p.style.opacity='0'; });
@@ -778,7 +778,7 @@ interface Props {
       }
     }
 
-    let timer = setTimeout(runCycle, 700);
+    let timer = setTimeout(runCycle, 700) as any;
     document.addEventListener('astro:before-swap', () => {
       clearTimeout(timer);
     }, { once: true });
