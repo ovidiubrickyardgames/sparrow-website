@@ -112,7 +112,7 @@ interface Props {
       </div>
 
       {/* Right Column: Premium Animated Dashboard Visual */}
-      <div class="lg:col-span-6 relative z-20 w-full h-[380px] sm:h-[420px] lg:h-[480px] hidden sm:flex items-center justify-center perspective-1000 mt-12 lg:mt-0 pr-4 lg:pr-8">
+      <div class="lg:col-span-6 relative z-20 w-full h-[380px] sm:h-[420px] lg:h-[480px] flex items-center justify-center perspective-1000 mt-12 lg:mt-0 px-2 sm:px-0 sm:pr-4 lg:pr-8">
         
         <div class="relative w-full h-full flex items-center justify-center origin-center">
         
@@ -120,7 +120,7 @@ interface Props {
           <div class="absolute inset-0 bg-gradient-to-tr from-zinc-200/40 via-transparent to-emerald-500/5 blur-3xl rounded-full z-0 transform-gpu scale-125"></div>
 
           {/* Main Dashboard Window - Completely visible within bounds */}
-          <div class="dashboard-window relative z-10 w-full max-w-[580px] h-full max-h-[440px] rounded-2xl border border-zinc-200/80 bg-white/70 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] backdrop-blur-2xl overflow-hidden flex flex-col transform-gpu transition-transform duration-700 hover:rotate-y-0 rotate-y-[-4deg] rotate-x-[2deg]">
+          <div class="dashboard-window relative z-10 w-full max-w-[580px] h-full max-h-[440px] scale-[0.90] sm:scale-100 origin-center rounded-2xl border border-zinc-200/80 bg-white/70 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] backdrop-blur-2xl overflow-hidden flex flex-col transform-gpu transition-transform duration-700 hover:rotate-y-0 rotate-y-[-4deg] rotate-x-[2deg]">
           
           {/* Header */}
           <div class="h-12 w-full border-b border-zinc-200/60 bg-zinc-50/50 flex items-center px-4 gap-3">
@@ -269,21 +269,11 @@ interface Props {
         </div>
 
         {/* Floating Deal Cards */}
-        <div class="absolute right-2 sm:right-4 lg:right-8 xl:right-10 top-1/4 h-16 w-44 rounded-xl border border-zinc-200/80 bg-white/95 shadow-[0_15px_35px_rgba(0,0,0,0.08)] backdrop-blur-md p-3 flex items-center gap-3 floating-card-1 z-30 hidden sm:flex transform hover:scale-105 transition-transform">
-          <div class="h-10 w-10 rounded-full bg-emerald-50 flex items-center justify-center border border-emerald-100 shrink-0">
-            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          </div>
-          <div class="flex flex-col gap-0.5 flex-1">
-            <div class="text-[11px] font-bold text-zinc-800">Meeting Booked</div>
-            <div class="text-[10px] text-zinc-500">$45,000 Pipeline</div>
-          </div>
-        </div>
-
-        <div class="absolute right-4 sm:right-10 lg:right-14 xl:right-20 bottom-12 sm:bottom-16 lg:bottom-24 h-20 w-52 rounded-xl border border-zinc-200/80 bg-white/95 shadow-[0_20px_40px_rgba(0,0,0,0.1)] backdrop-blur-md p-3.5 hidden sm:flex flex-col justify-center gap-2.5 floating-card-2 z-50 transform hover:scale-105 transition-transform">
+        <div class="absolute right-4 sm:right-10 lg:right-14 xl:right-20 bottom-12 sm:bottom-16 lg:bottom-24 h-20 w-52 rounded-xl border border-zinc-200/80 bg-white/95 shadow-[0_20px_40px_rgba(0,0,0,0.1)] backdrop-blur-md p-3.5 flex flex-col justify-center gap-2.5 floating-card-2 z-50 scale-[0.80] sm:scale-100 origin-bottom-right transform hover:scale-[0.85] sm:hover:scale-105 transition-transform">
           <div class="flex justify-between items-center w-full">
             <div class="text-[11px] font-bold text-zinc-800">Warm Lead</div>
-            <div class="h-4 px-2 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center text-[8px] font-bold text-zinc-500 uppercase tracking-wide">
-               Ready
+            <div class="h-4 px-2 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-[9px] font-bold text-emerald-600 tracking-wide">
+               $45,000
             </div>
           </div>
           <div class="flex items-center gap-2.5 mt-0.5">
@@ -300,7 +290,7 @@ interface Props {
         </div>
         
         {/* Animated Contract */}
-        <div class="contract-wrap absolute -bottom-8 sm:-bottom-12 right-2 sm:-right-8 z-40 hidden sm:flex transform scale-[0.65] sm:scale-75 lg:scale-90 origin-bottom-right">
+        <div class="contract-wrap absolute -bottom-8 sm:-bottom-12 right-2 sm:-right-8 z-40 flex transform scale-[0.65] sm:scale-75 lg:scale-90 origin-bottom-right">
           <div class="contract-stage">
             <div class="contract-paper" id="contractPaper">
               <div id="contractLines"></div>
