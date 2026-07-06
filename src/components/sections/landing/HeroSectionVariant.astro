@@ -269,7 +269,7 @@ interface Props {
         </div>
 
         {/* Floating Deal Cards */}
-        <div class="absolute -right-2 sm:-right-4 lg:-right-6 xl:-right-8 top-1/4 h-16 w-44 rounded-xl border border-zinc-200/80 bg-white/95 shadow-[0_15px_35px_rgba(0,0,0,0.08)] backdrop-blur-md p-3 flex items-center gap-3 floating-card-1 z-30 hidden sm:flex transform hover:scale-105 transition-transform">
+        <div class="absolute right-2 sm:right-4 lg:right-8 xl:right-10 top-1/4 h-16 w-44 rounded-xl border border-zinc-200/80 bg-white/95 shadow-[0_15px_35px_rgba(0,0,0,0.08)] backdrop-blur-md p-3 flex items-center gap-3 floating-card-1 z-30 hidden sm:flex transform hover:scale-105 transition-transform">
           <div class="h-10 w-10 rounded-full bg-emerald-50 flex items-center justify-center border border-emerald-100 shrink-0">
             <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
           </div>
@@ -279,7 +279,7 @@ interface Props {
           </div>
         </div>
 
-        <div class="absolute -left-4 sm:-left-12 bottom-1/4 h-20 w-52 rounded-xl border border-zinc-200/80 bg-white/95 shadow-[0_20px_40px_rgba(0,0,0,0.1)] backdrop-blur-md p-3.5 hidden sm:flex flex-col justify-center gap-2.5 floating-card-2 z-30 transform hover:scale-105 transition-transform">
+        <div class="absolute right-4 sm:right-10 lg:right-14 xl:right-20 bottom-12 sm:bottom-16 lg:bottom-24 h-20 w-52 rounded-xl border border-zinc-200/80 bg-white/95 shadow-[0_20px_40px_rgba(0,0,0,0.1)] backdrop-blur-md p-3.5 hidden sm:flex flex-col justify-center gap-2.5 floating-card-2 z-50 transform hover:scale-105 transition-transform">
           <div class="flex justify-between items-center w-full">
             <div class="text-[11px] font-bold text-zinc-800">Warm Lead</div>
             <div class="h-4 px-2 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center text-[8px] font-bold text-zinc-500 uppercase tracking-wide">
@@ -299,6 +299,68 @@ interface Props {
           </div>
         </div>
         
+        {/* Animated Contract */}
+        <div class="contract-wrap absolute -bottom-8 sm:-bottom-12 right-2 sm:-right-8 z-40 hidden sm:flex transform scale-[0.65] sm:scale-75 lg:scale-90 origin-bottom-right">
+          <div class="contract-stage">
+            <div class="contract-paper" id="contractPaper">
+              <div id="contractLines"></div>
+              <div class="sig-section">
+                <div class="sig-label">AUTHORIZED SIGNATURE</div>
+                <div class="sig-dotted"></div>
+                <div class="sig-area">
+                  <svg id="mainSvg" width="100%" height="68" viewBox="0 0 240 68"
+                       style="position:absolute;top:0;left:0;overflow:visible;">
+                    <!-- C -->
+                    <path class="stroke" fill="none" stroke="#1a1830" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                      d="M 28,18 C 22,12 8,12 5,22 C 2,32 6,44 16,47 C 22,49 28,47 32,42"/>
+                    <!-- L -->
+                    <path class="stroke" fill="none" stroke="#1a1830" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                      d="M 42,10 C 41,10 39,48 40,52 C 41,54 48,55 54,53"/>
+                    <!-- O -->
+                    <path class="stroke" fill="none" stroke="#1a1830" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                      d="M 74,22 C 70,15 59,15 57,25 C 55,35 60,48 70,49 C 79,50 84,40 82,30 C 80,20 74,22 74,22"/>
+                    <!-- S -->
+                    <path class="stroke" fill="none" stroke="#1a1830" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                      d="M 108,22 C 104,15 92,14 91,21 C 90,27 97,31 103,34 C 110,37 113,43 108,48 C 104,52 93,51 89,45"/>
+                    <!-- E stem -->
+                    <path class="stroke" fill="none" stroke="#1a1830" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                      d="M 122,14 C 121,14 119,50 120,53"/>
+                    <!-- E top arm -->
+                    <path class="stroke" fill="none" stroke="#1a1830" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                      d="M 121,16 C 124,14 134,14 138,16"/>
+                    <!-- E mid arm -->
+                    <path class="stroke" fill="none" stroke="#1a1830" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                      d="M 120,33 C 123,31 131,31 135,33"/>
+                    <!-- E base arm -->
+                    <path class="stroke" fill="none" stroke="#1a1830" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                      d="M 120,52 C 123,50 134,50 139,52"/>
+                    <!-- D stem -->
+                    <path class="stroke" fill="none" stroke="#1a1830" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                      d="M 150,12 C 149,12 147,50 148,54"/>
+                    <!-- D bowl -->
+                    <path class="stroke" fill="none" stroke="#1a1830" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+                      d="M 149,14 C 158,13 170,18 172,30 C 174,42 165,53 150,53"/>
+                    <!-- Pen -->
+                    <g id="penG" opacity="0">
+                      <g transform="rotate(-38,0,0)">
+                        <polygon points="0,0 -4,-14 4,-14" fill="#c4973a"/>
+                        <line x1="0" y1="-1" x2="0" y2="-13" stroke="#0e0e1c" stroke-width="0.5" opacity="0.5"/>
+                        <rect x="-5" y="-32" width="10" height="19" rx="2" fill="#141420"/>
+                        <rect x="-5.5" y="-35" width="11" height="4" rx="1" fill="#c4973a"/>
+                        <rect x="-5" y="-100" width="10" height="66" rx="3" fill="#1c1c2e"/>
+                        <rect x="-5.5" y="-104" width="11" height="7" rx="3" fill="#24243a"/>
+                        <rect x="5" y="-101" width="2" height="58" rx="1" fill="#c4973a"/>
+                        <circle cx="6" cy="-101" r="2" fill="#c4973a"/>
+                        <rect x="-4" y="-99" width="1.5" height="60" rx="0.7" fill="rgba(255,255,255,0.07)"/>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         </div>
 
       </div>
@@ -323,6 +385,60 @@ interface Props {
   
   .rotate-x-\[2deg\] {
     transform: rotateX(2deg);
+  }
+
+  /* Contract styles */
+  .contract-wrap {
+    display: flex;
+    justify-content: center;
+    perspective: 900px;
+    perspective-origin: 50% 20%;
+    animation: floatCard2 9s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  .contract-stage {
+    transform: rotateX(24deg) rotateY(-3deg);
+    transform-origin: center top;
+    width: 280px;
+  }
+  .contract-paper {
+    background: #faf9f6;
+    border-radius: 4px;
+    border: 0.5px solid rgba(0,0,0,0.1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.07);
+    padding: 20px 22px 18px;
+    position: relative;
+  }
+  :global(.c-line) {
+    height: 2px;
+    border-radius: 1px;
+    background: #e5e2dc;
+    margin-bottom: 8px;
+    transform-origin: left;
+    animation: lineIn 0.35s ease both;
+  }
+  @keyframes lineIn {
+    from { transform: scaleX(0); opacity: 0; }
+    to   { transform: scaleX(1); opacity: 1; }
+  }
+  .sig-section {
+    border-top: 0.5px solid #ddd;
+    padding-top: 10px;
+  }
+  .sig-label {
+    font-family: -apple-system, sans-serif;
+    font-size: 7px;
+    letter-spacing: 1.4px;
+    color: #bbb;
+    margin-bottom: 6px;
+  }
+  .sig-dotted {
+    border-bottom: 1px dashed #ccc;
+    width: 100%;
+  }
+  .sig-area {
+    position: relative;
+    height: 68px;
   }
 
   /* Animations for dashboard visual */
@@ -553,4 +669,131 @@ interface Props {
 
   document.addEventListener('astro:page-load', initHeroCanvas);
   initHeroCanvas();
+
+  function initContractAnimation() {
+    const linesEl = document.getElementById('contractLines');
+    if (!linesEl) return;
+    
+    linesEl.innerHTML = ''; 
+    
+    [85,68,80,60,75,55,70,62,52].forEach(function(pct, i){
+      const l = document.createElement('div');
+      l.className = 'c-line';
+      l.style.width = pct + '%';
+      l.style.animationDelay = (0.4 + i * 0.05) + 's';
+      linesEl.appendChild(l);
+    });
+
+    const strokes   = Array.from(document.querySelectorAll('.stroke'));
+    const penG      = document.getElementById('penG');
+    if (!penG || !strokes.length) return;
+    
+    const durations = [540, 380, 480, 480, 320, 160, 160, 160, 280, 420];
+    const LIFT_DUR  = 120;
+    const HOLD      = 900;
+    const PAUSE     = 2200;
+    const FLY_DUR   = 520;
+
+    function easeInOut(t){ return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+    function runCycle(){
+      if (!document.getElementById('contractLines')) return;
+      
+      strokes.forEach(function(p){
+        var len = p.getTotalLength();
+        p.setAttribute('stroke-dasharray', len);
+        p.setAttribute('stroke-dashoffset', len);
+        p.style.opacity = '1';
+        p.style.transition = 'none';
+      });
+      penG.setAttribute('opacity','0');
+
+      var firstPt = strokes[0].getPointAtLength(0);
+      var flyT0   = performance.now() + 850;
+
+      function flyFrame(now){
+        if (!document.getElementById('contractLines')) return;
+        var t = Math.min((now - flyT0) / FLY_DUR, 1);
+        if(t <= 0){ requestAnimationFrame(flyFrame); return; }
+        var e = easeInOut(t);
+        penG.setAttribute('transform','translate('+(220+(firstPt.x-220)*e)+','+((-52)+(firstPt.y+52)*e)+')');
+        penG.setAttribute('opacity', String(Math.min(t*3,1)));
+        if(t < 1) requestAnimationFrame(flyFrame);
+        else      writeStroke(0);
+      }
+      requestAnimationFrame(flyFrame);
+
+      function writeStroke(idx){
+        if (!document.getElementById('contractLines')) return;
+        if(idx >= strokes.length){ setTimeout(liftAndEnd, HOLD); return; }
+        var path  = strokes[idx];
+        var total = path.getTotalLength();
+        var dur   = durations[idx] || 300;
+        var t0    = performance.now();
+        function frame(now){
+          if (!document.getElementById('contractLines')) return;
+          var raw  = Math.min((now - t0) / dur, 1);
+          var ease = easeInOut(raw);
+          var drawn = ease * total;
+          path.setAttribute('stroke-dashoffset', total - drawn);
+          var pt = path.getPointAtLength(drawn);
+          penG.setAttribute('transform','translate('+pt.x+','+pt.y+')');
+          if(raw < 1) requestAnimationFrame(frame);
+          else {
+            if(idx + 1 < strokes.length)
+              liftToNext(pt, strokes[idx+1].getPointAtLength(0), function(){ writeStroke(idx+1); });
+            else
+              writeStroke(idx+1);
+          }
+        }
+        requestAnimationFrame(frame);
+      }
+
+      function liftToNext(from, to, cb){
+        var t0 = performance.now();
+        function frame(now){
+          if (!document.getElementById('contractLines')) return;
+          var t = Math.min((now - t0) / LIFT_DUR, 1);
+          var e = easeInOut(t);
+          var mx = from.x + (to.x - from.x) * e;
+          var my = from.y + (to.y - from.y) * e - Math.sin(e * Math.PI) * 10;
+          penG.setAttribute('transform','translate('+mx+','+my+')');
+          if(t < 1) requestAnimationFrame(frame); else cb();
+        }
+        requestAnimationFrame(frame);
+      }
+
+      function liftAndEnd(){
+        var last   = strokes[strokes.length - 1];
+        var lastPt = last.getPointAtLength(last.getTotalLength());
+        var t0     = performance.now();
+        var LDUR   = 420;
+        function frame(now){
+          if (!document.getElementById('contractLines')) return;
+          var t = Math.min((now - t0) / LDUR, 1);
+          var e = easeInOut(t);
+          penG.setAttribute('transform','translate('+(lastPt.x+e*44)+','+(lastPt.y-e*46)+')');
+          penG.setAttribute('opacity', String(1 - e));
+          if(t < 1) requestAnimationFrame(frame);
+          else {
+            penG.setAttribute('opacity','0');
+            setTimeout(function(){
+              if (!document.getElementById('contractLines')) return;
+              strokes.forEach(function(p){ p.style.transition='opacity 0.35s'; p.style.opacity='0'; });
+              setTimeout(runCycle, 380);
+            }, PAUSE);
+          }
+        }
+        requestAnimationFrame(frame);
+      }
+    }
+
+    let timer = setTimeout(runCycle, 700);
+    document.addEventListener('astro:before-swap', () => {
+      clearTimeout(timer);
+    }, { once: true });
+  }
+
+  document.addEventListener('astro:page-load', initContractAnimation);
+  initContractAnimation();
 </script>
