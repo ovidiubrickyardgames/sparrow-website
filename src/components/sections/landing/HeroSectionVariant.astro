@@ -664,6 +664,12 @@ interface Props {
     const linesEl = document.getElementById('contractLines');
     if (!linesEl) return;
     
+    // Prevent double execution on initial load or HMR
+    if ((linesEl as any)._isAnimating) return;
+    (linesEl as any)._isAnimating = true;
+
+    let isCancelled = false;
+    
     linesEl.innerHTML = ''; 
     
     [85,68,80,60,75,55,70,62,52].forEach(function(pct, i){
@@ -676,7 +682,10 @@ interface Props {
 
     const strokes   = Array.from(document.querySelectorAll('.stroke')) as SVGPathElement[];
     const penG      = document.getElementById('penG') as SVGGElement | null;
-    if (!penG || !strokes.length) return;
+    if (!penG || !strokes.length) {
+      (linesEl as any)._isAnimating = false;
+      return;
+    }
     
     const durations = [540, 380, 480, 480, 320, 160, 160, 160, 280, 420];
     const LIFT_DUR  = 120;
@@ -687,7 +696,7 @@ interface Props {
     function easeInOut(t: number){ return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
     function runCycle(){
-      if (!document.getElementById('contractLines')) return;
+      if (isCancelled || !document.getElementById('contractLines')) return;
       
       strokes.forEach(function(p){
         var len = p.getTotalLength();
@@ -702,7 +711,7 @@ interface Props {
       var flyT0   = performance.now() + 850;
 
       function flyFrame(now: number){
-        if (!document.getElementById('contractLines')) return;
+        if (isCancelled || !document.getElementById('contractLines')) return;
         var t = Math.min((now - flyT0) / FLY_DUR, 1);
         if(t <= 0){ requestAnimationFrame(flyFrame); return; }
         var e = easeInOut(t);
@@ -714,14 +723,14 @@ interface Props {
       requestAnimationFrame(flyFrame);
 
       function writeStroke(idx: number){
-        if (!document.getElementById('contractLines')) return;
+        if (isCancelled || !document.getElementById('contractLines')) return;
         if(idx >= strokes.length){ setTimeout(liftAndEnd, HOLD); return; }
         var path  = strokes[idx];
         var total = path.getTotalLength();
         var dur   = durations[idx] || 300;
         var t0    = performance.now();
         function frame(now: number){
-          if (!document.getElementById('contractLines')) return;
+          if (isCancelled || !document.getElementById('contractLines')) return;
           var raw  = Math.min((now - t0) / dur, 1);
           var ease = easeInOut(raw);
           var drawn = ease * total;
@@ -742,7 +751,7 @@ interface Props {
       function liftToNext(from: {x: number, y: number}, to: {x: number, y: number}, cb: () => void){
         var t0 = performance.now();
         function frame(now: number){
-          if (!document.getElementById('contractLines')) return;
+          if (isCancelled || !document.getElementById('contractLines')) return;
           var t = Math.min((now - t0) / LIFT_DUR, 1);
           var e = easeInOut(t);
           var mx = from.x + (to.x - from.x) * e;
@@ -759,7 +768,7 @@ interface Props {
         var t0     = performance.now();
         var LDUR   = 420;
         function frame(now: number){
-          if (!document.getElementById('contractLines')) return;
+          if (isCancelled || !document.getElementById('contractLines')) return;
           var t = Math.min((now - t0) / LDUR, 1);
           var e = easeInOut(t);
           penG!.setAttribute('transform','translate('+(lastPt.x+e*44)+','+(lastPt.y-e*46)+')');
@@ -768,9 +777,11 @@ interface Props {
           else {
             penG!.setAttribute('opacity','0');
             setTimeout(function(){
-              if (!document.getElementById('contractLines')) return;
+              if (isCancelled || !document.getElementById('contractLines')) return;
               strokes.forEach(function(p){ p.style.transition='opacity 0.35s'; p.style.opacity='0'; });
-              setTimeout(runCycle, 380);
+              setTimeout(function(){
+                if (!isCancelled) runCycle();
+              }, 380);
             }, PAUSE);
           }
         }
@@ -778,9 +789,16 @@ interface Props {
       }
     }
 
-    let timer = setTimeout(runCycle, 700) as any;
+    let timer = setTimeout(function(){
+      if (!isCancelled) runCycle();
+    }, 700) as any;
+    
     document.addEventListener('astro:before-swap', () => {
+      isCancelled = true;
       clearTimeout(timer);
+      if (linesEl) {
+        (linesEl as any)._isAnimating = false;
+      }
     }, { once: true });
   }
 
