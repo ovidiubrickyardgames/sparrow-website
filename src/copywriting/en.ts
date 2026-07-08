@@ -148,7 +148,7 @@ export const en: CopywritingSchema = {
         eyebrowLabel: 'DONE-FOR-YOU • PERFORMANCE-BASED',
         titleHtml: 'We handle the sales pipeline.<br/>You just <span class="underline italic">close.</span>',
         subTitle: "We find your buyers, run the outreach, and book the meetings — your closers just show up and do what they're best at.",
-        primaryBtn: 'Get a free pipeline review →',
+        primaryBtn: 'Get a free pipeline review',
         primaryBtnSub: '15-min call · no commitment',
         primaryBtnURL: '#audit',
       },
