@@ -29,8 +29,30 @@ const homeUrl = "/";
       >
         <BrandLogo class="h-auto w-auto" />
       </a>
-      {/* Collapse toggle for smaller screens */}
-      <div class="mr-5 ml-auto md:hidden">
+      {/* Mobile CTA & Collapse toggle */}
+      <div class="flex items-center gap-x-2 mr-5 ml-auto md:hidden">
+        {
+          strings.navBarLinks.map((link) => {
+            if (link.url === "#audit") {
+              return (
+                <div
+                  class="nav-cta-wrapper grid grid-cols-[0fr] items-center opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] data-[visible=true]:grid-cols-[1fr] data-[visible=true]:opacity-100 pointer-events-none data-[visible=true]:pointer-events-auto"
+                  data-visible="false"
+                >
+                  <div class="overflow-hidden">
+                    <a
+                      href={link.url}
+                      class="nav-cta-button group inline-flex w-full items-center justify-center gap-x-[6px] rounded-[8px] bg-[#0f0f0f] px-[16px] py-[8px] text-[13px] font-medium text-white outline-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#2a2a2a] active:scale-[0.98] whitespace-nowrap scale-95 opacity-0 data-[visible=true]:scale-100 data-[visible=true]:opacity-100"
+                      data-visible="false"
+                    >
+                      {link.name}
+                    </a>
+                  </div>
+                </div>
+              );
+            }
+          })
+        }
         <button
           type="button"
           class="hs-collapse-toggle text-brand-text hover:bg-brand-accent-1/20 flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition duration-300 disabled:pointer-events-none disabled:opacity-50 dark:focus:outline-hidden"
@@ -94,15 +116,13 @@ const homeUrl = "/";
             if (link.url === "#audit") {
               return (
                 <div
-                  id="nav-cta-wrapper"
-                  class="mt-4 grid grid-cols-[0fr] items-center opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:mt-0 data-[visible=true]:grid-cols-[1fr] data-[visible=true]:opacity-100 md:data-[visible=true]:ml-4 lg:data-[visible=true]:ml-7 pointer-events-none data-[visible=true]:pointer-events-auto"
+                  class="nav-cta-wrapper hidden md:grid grid-cols-[0fr] items-center opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:mt-0 data-[visible=true]:grid-cols-[1fr] data-[visible=true]:opacity-100 md:data-[visible=true]:ml-4 lg:data-[visible=true]:ml-7 pointer-events-none data-[visible=true]:pointer-events-auto"
                   data-visible="false"
                 >
                   <div class="overflow-hidden">
                     <a
-                      id="nav-cta-button"
                       href={link.url}
-                      class="group inline-flex w-full items-center justify-center gap-x-[8px] rounded-[8px] bg-[#0f0f0f] px-[24px] py-[12px] text-[14px] font-medium text-white outline-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#2a2a2a] active:scale-[0.98] whitespace-nowrap md:w-auto scale-95 opacity-0 data-[visible=true]:scale-100 data-[visible=true]:opacity-100"
+                      class="nav-cta-button group inline-flex w-full items-center justify-center gap-x-[8px] rounded-[8px] bg-[#0f0f0f] px-[24px] py-[12px] text-[14px] font-medium text-white outline-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#2a2a2a] active:scale-[0.98] whitespace-nowrap md:w-auto scale-95 opacity-0 data-[visible=true]:scale-100 data-[visible=true]:opacity-100"
                       data-visible="false"
                     >
                       {link.name}
@@ -127,8 +147,8 @@ const homeUrl = "/";
   function initNavbar() {
     const nav = document.getElementById("main-nav");
     const sentinel = document.getElementById("hero-buttons-container") || document.getElementById("hero-wrap") || document.getElementById("nav-sentinel");
-    const ctaWrapper = document.getElementById("nav-cta-wrapper");
-    const ctaBtn = document.getElementById("nav-cta-button");
+    const ctaWrappers = document.querySelectorAll(".nav-cta-wrapper");
+    const ctaBtns = document.querySelectorAll(".nav-cta-button");
 
     if (nav && sentinel) {
       if (navbarObserver) {
@@ -142,14 +162,14 @@ const homeUrl = "/";
               // Scrolled down
               nav.classList.add("md:max-w-6xl");
               nav.classList.remove("md:max-w-4xl");
-              if (ctaWrapper) ctaWrapper.dataset.visible = "true";
-              if (ctaBtn) ctaBtn.dataset.visible = "true";
+              ctaWrappers.forEach((el) => { (el as HTMLElement).dataset.visible = "true"; });
+              ctaBtns.forEach((el) => { (el as HTMLElement).dataset.visible = "true"; });
             } else {
               // At the top
               nav.classList.remove("md:max-w-6xl");
               nav.classList.add("md:max-w-4xl");
-              if (ctaWrapper) ctaWrapper.dataset.visible = "false";
-              if (ctaBtn) ctaBtn.dataset.visible = "false";
+              ctaWrappers.forEach((el) => { (el as HTMLElement).dataset.visible = "false"; });
+              ctaBtns.forEach((el) => { (el as HTMLElement).dataset.visible = "false"; });
             }
           });
         },
