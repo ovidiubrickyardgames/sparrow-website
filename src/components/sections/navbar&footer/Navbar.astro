@@ -8,6 +8,8 @@ import BrandLogo from "@components/BrandLogo.astro";
 const copy = useTranslations();
 const strings = copy.navigation;
 const homeUrl = "/";
+const currentPath = Astro.url.pathname;
+const isMainPage = currentPath === "/" || currentPath === "";
 ---
 
 {/* Main header component */}
@@ -41,7 +43,7 @@ const homeUrl = "/";
                 >
                   <div class="overflow-hidden">
                     <a
-                      href={link.url}
+                      href={isMainPage ? link.url : (link.url.startsWith("#") ? `/${link.url}` : link.url)}
                       class="nav-cta-button group inline-flex w-full items-center justify-center gap-x-[6px] rounded-[8px] bg-[#0f0f0f] px-[16px] py-[8px] text-[13px] font-medium text-white outline-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#2a2a2a] active:scale-[0.98] whitespace-nowrap scale-95 opacity-0 data-[visible=true]:scale-100 data-[visible=true]:opacity-100"
                       data-visible="false"
                     >
@@ -111,7 +113,7 @@ const homeUrl = "/";
           {
             strings.navBarLinks.map((link) => {
               if (link.url !== "#audit") {
-                return <NavLink url={link.url} name={link.name} />;
+                return <NavLink url={isMainPage ? link.url : (link.url.startsWith("#") ? `/${link.url}` : link.url)} name={link.name} />;
               }
             })
           }
@@ -127,7 +129,7 @@ const homeUrl = "/";
                 >
                   <div class="overflow-hidden">
                     <a
-                      href={link.url}
+                      href={isMainPage ? link.url : (link.url.startsWith("#") ? `/${link.url}` : link.url)}
                       class="nav-cta-button group inline-flex w-full items-center justify-center gap-x-[8px] rounded-[8px] bg-[#0f0f0f] px-[24px] py-[12px] text-[14px] font-medium text-white outline-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#2a2a2a] active:scale-[0.98] whitespace-nowrap md:w-auto scale-95 opacity-0 data-[visible=true]:scale-100 data-[visible=true]:opacity-100"
                       data-visible="false"
                     >

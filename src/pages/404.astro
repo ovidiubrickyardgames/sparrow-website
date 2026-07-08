@@ -46,6 +46,6 @@ const { pageTitle, subTitle, content, btnTitle } = copy.pages.fourOhFour;
   const goBackButton = document.getElementById('go-back') as HTMLButtonElement;
 
   goBackButton.addEventListener('click', () => {
-    history.back();
+    window.location.href = '/';
   });
 </script>
